@@ -1,14 +1,14 @@
-const choice = {
-  0: { value: "rock", beating: "scissors" },
-  1: { value: "paper", beating: "rock" },
-  2: { value: "scissors", beating: "paper" },
-};
+const choice = [
+  { value: "rock", beating: "scissors" },
+  { value: "paper", beating: "rock" },
+  { value: "scissors", beating: "paper" },
+];
 
 //Get user's choice
 const getUserChoice = (userInput) => {
   const userChoice =
-    Object.keys(choice)
-      .map((item) => choice[item].name === userInput.name)
+    choice
+      .map((item) => item.name === userInput.name)
       .reduce((acc, curr) => (acc += +curr)) > 0
       ? userInput
       : console.log("Error! You must select a valid option!");
@@ -27,7 +27,7 @@ const getComputerChoice = () => {
 const determineWinner = (userChoice, computerChoice) => {
   const result =
     userChoice.beating === computerChoice.value
-      ? "You win"
+      ? "You win!"
       : computerChoice.beating === userChoice.value
       ? "Computer wins!"
       : "This game is a tie!";
