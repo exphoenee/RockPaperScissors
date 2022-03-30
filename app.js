@@ -47,9 +47,16 @@ const determineWinner = (userChoice, computerChoice) => {
   }
 };
 
+function getChoice(userChoice) {
+  const c = Object.keys(choice).filter((c) => c.name === userChoice);
+  console.log(c);
+  return c;
+}
+
 //The program!
 const playGame = () => {
-  const userChoice = getUserChoice("scissors");
+  const userChoice = getUserChoice(getChoice("scissors"));
+
   const computerChoice = getComputerChoice();
   console.log("You threw " + userChoice);
   console.log("CPU threw " + computerChoice);
