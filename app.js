@@ -8,6 +8,8 @@ class UI {
     this.player = document.querySelector(".image-container.player");
     this.computer = document.querySelector("image-container.computer");
 
+    this.images = document.querySelectorAll(".images");
+
     this.next.addEventListener("click", () => {});
     this.prev.addEventListener("click", () => {});
     this.start.addEventListener("click", () => {});
