@@ -1,5 +1,16 @@
+class UI {
+  constructor() {
+    this.start = document.querySelector(".start");
+    this.next = document.querySelector(".next");
+    this.prev = document.querySelector(".prev");
+    this.player = document.querySelector(".image-container.player");
+    this.computer = document.querySelector("image-container.computer");
+  }
+}
+
 class Game {
   constructor() {
+    this.ui = new UI();
     this.choice = [
       { value: "rock", beats: ["scissors", "lizard"] },
       { value: "paper", beats: ["rock", "spock"] },
@@ -71,11 +82,3 @@ class Game {
 }
 
 const game = new Game();
-
-class UI {
-  constructor() {
-    this.start = document.querySelector(".start");
-    this.next = document.querySelector(".next");
-    this.prev = document.querySelector(".prev");
-  }
-}
