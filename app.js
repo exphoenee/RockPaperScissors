@@ -18,38 +18,50 @@ class Game {
     this.next = document.querySelector(".next");
     this.prev = document.querySelector(".prev");
     this.rules = document.querySelector(".rules");
-    this.playerImage = document.querySelector(".image-container.player");
-    this.computerImage = document.querySelector("image-container.computer");
 
-    this.images = Array.from(document.querySelectorAll(".images"));
+    this.playerImages = Array.from(document.querySelectorAll(".images.player"));
+    this.computerImages = Array.from(
+      document.querySelectorAll(".images.computer")
+    );
 
     this.next.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log(this.userChoiceIndex);
       this.userChoiceIndex++;
       if (this.userChoiceIndex > this.choice.length - 1) {
         this.userChoiceIndex = 0;
       }
-      console.log(this.playerImage.src, this.images[this.userChoiceIndex].src);
-      this.playerImage.src = this.images[this.userChoiceIndex].src;
+      console.log(this.userChoiceIndex);
+      this.setHidden();
     });
 
     this.prev.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log(this.userChoiceIndex);
       this.userChoiceIndex--;
       if (this.userChoiceIndex < 0) {
         this.userChoiceIndex = this.choice.length - 1;
       }
-      console.log(this.playerImage.src, this.images[this.userChoiceIndex].src);
-      this.playerImage.src = this.images[this.userChoiceIndex].src;
+      console.log(this.userChoiceIndex);
+      this.setHidden();
     });
 
-    this.start.addEventListener("click", () => {});
+    this.start.addEventListener("click", () => {
+      new Array(15).fill(0).forEach((e, i) => {
+        setTimeout(() => {
+          this.computerChoice = Math.floor(Math.random() * this.choice.length);
+          this.setHidden(this.computerImages, this.computerChoice);
+        }, (15 * 15 * 300) / (i * i * i)) +
+          (15 - i) * 200;
+      });
+    });
     this.rules.addEventListener("click", () => {});
 
     this.generateRules();
     this.playGame();
+  }
+
+  setHidden(images = this.playerImages, index = this.userChoiceIndex) {
+    images.forEach((img) => img.classList.add("hidden"));
+    images[index].classList.remove("hidden");
   }
 
   //Get user's choice
@@ -105,7 +117,6 @@ class Game {
   playGame() {
     this.showRules();
     this.getUserChoice("scissors");
-    this.getComputerChoice();
     this.determineWinner();
     this.showResult();
   }
