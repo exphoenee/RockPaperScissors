@@ -1,10 +1,22 @@
 #app {
+  font-family: "Luckiest Guy", cursive;
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 3rem;
 }
 
 .game-area {
@@ -29,7 +41,8 @@
 
 .prev,
 .next,
-.start {
+.start,
+.rules {
   background: none;
   border: none;
   cursor: pointer;
@@ -38,7 +51,8 @@
 }
 .prev:hover,
 .next:hover,
-.start:hover {
+.start:hover,
+.rules:hover {
   transform: scale(1.08);
 }
 
