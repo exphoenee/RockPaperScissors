@@ -1,7 +1,9 @@
 const choice = [
-  { value: "rock", beating: ["scissors"] },
-  { value: "paper", beating: ["rock"] },
-  { value: "scissors", beating: ["paper"] },
+  { value: "rock", beats: ["scissors", "lizard"] },
+  { value: "paper", beats: ["rock", "spock"] },
+  { value: "scissors", beats: ["paper", "lizard"] },
+  { value: "spock", beats: ["rock", "scissors"] },
+  { value: "lizard", beats: ["paper", "spock"] },
 ];
 
 //Get user's choice
@@ -18,16 +20,16 @@ const getUserChoice = (userInput) => {
 
 //Get computer's choice
 const getComputerChoice = () => {
-  const computerChoice = choice[Math.floor(Math.random() * 3)];
+  const computerChoice = choice[Math.floor(Math.random() * 5)];
   console.log("CPU threw " + computerChoice.value);
   return computerChoice;
 };
 
 //Compare & determine the winner
 const determineWinner = (userChoice, computerChoice) => {
-  const result = userChoice.beating.includes(computerChoice.value)
+  const result = userChoice.beats.includes(computerChoice.value)
     ? "You win!"
-    : computerChoice.beating.includes(userChoice.value)
+    : computerChoice.beats.includes(userChoice.value)
     ? "Computer wins!"
     : "This game is a tie!";
   console.log(result);
@@ -41,8 +43,17 @@ function getChoice(userChoice) {
   ];
 }
 
+function generateRules() {
+  const rules = `Game rules:\n${choice
+    .map((c) => `${c.value} beats ${c.beats.join(" and ")}`)
+    .join("\n")}\n----------------------------`;
+  console.log(rules);
+  return rules;
+}
+
 //The program!
 const playGame = () => {
+  generateRules();
   const userChoice = getUserChoice(getChoice("scissors"));
   const computerChoice = getComputerChoice();
   determineWinner(userChoice, computerChoice);
