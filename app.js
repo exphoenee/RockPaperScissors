@@ -48,7 +48,12 @@ const determineWinner = (userChoice, computerChoice) => {
 };
 
 function getChoice(userChoice) {
-  const c = Object.keys(choice).filter((c) => c.name === userChoice);
+  const uc = userChoice.toLowerCase();
+  console.log(uc);
+  const c = Object.keys(choice).filter((c) => {
+    console.log(choice[c]);
+    return choice[c].name === uc;
+  })[0];
   console.log(c);
   return c;
 }
