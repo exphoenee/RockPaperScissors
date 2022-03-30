@@ -1,28 +1,22 @@
+const choice = {
+  0: { value: "rock", beating: "scissors" },
+  1: { value: "paper", beating: "rock" },
+  2: { value: "scissors", beating: "paper" },
+};
+
 //Get user's choice
 const getUserChoice = (userInput) => {
   userInput = userInput.toLowerCase();
-  if (
-    userInput === "rock" ||
-    userInput === "paper" ||
-    userInput === "scissors"
-  ) {
-    return userInput;
-  } else {
-    console.log("Error! You must select a valid option!");
-  }
+  return Object.keys(choice)
+    .map((item) => choice[item] === userInput)
+    .reduce((acc, curr) => (acc += +curr)) > 0
+    ? userInput
+    : console.log("Error! You must select a valid option!");
 };
 
 //Get computer's choice
 const getComputerChoice = () => {
-  const randomNumber = Math.floor(Math.random() * 3);
-  switch (randomNumber) {
-    case 0:
-      return "rock";
-    case 1:
-      return "paper";
-    case 2:
-      return "scissors";
-  }
+  return choice[Math.floor(Math.random() * 3)];
 };
 
 //Compare & determine the winner
@@ -34,21 +28,21 @@ const determineWinner = (userChoice, computerChoice) => {
     if (computerChoice === "scissors") {
       return "You win!";
     } else {
-      return "You lose!";
+      return "Computer wins!";
     }
   }
   if (userChoice === "paper") {
     if (computerChoice === "rock") {
       return "You win!";
     } else {
-      return "You lose!";
+      return "Computer wins!";
     }
   }
   if (userChoice === "scissors") {
     if (computerChoice === "paper") {
       return "You win!";
     } else {
-      return "You lose!";
+      return "Computer wins!";
     }
   }
 };
