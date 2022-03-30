@@ -73,6 +73,7 @@ img {
   transform: rotate(180deg);
   transform-origin: center;
 }
+
 .hidden {
   display: none;
 }
