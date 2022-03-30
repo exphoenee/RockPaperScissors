@@ -6,13 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock, paper, scissors, lizard, Spock</title>
     <link rel="stylesheet" href="style.css" />
-    :
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="app">
+      <div class="header">
+        <h1>Rock, paper, scissors, lizard, Spock</h1>
+        <button class="rules">Rules</button>
+      </div>
       <div class="game-area">
         <div class="container player">
-          <div class="image-container">
+          <div class="image-container player">
             <img src="./media/001-vulcan.png" alt="players choice" srcset="" />
           </div>
           <div class="controls">
@@ -31,7 +40,7 @@
           <img src="./media/001-vs-2.png" alt="versus" srcset="" />
         </div>
         <div class="container computer">
-          <div class="image-container">
+          <div class="image-container computer">
             <img
               src="./media/002-lizard.png"
               alt="computers choice"
