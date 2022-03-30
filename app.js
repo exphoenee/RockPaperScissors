@@ -1,7 +1,7 @@
 const choice = [
-  { value: "rock", beating: "scissors" },
-  { value: "paper", beating: "rock" },
-  { value: "scissors", beating: "paper" },
+  { value: "rock", beating: ["scissors"] },
+  { value: "paper", beating: ["rock"] },
+  { value: "scissors", beating: ["paper"] },
 ];
 
 //Get user's choice
@@ -25,12 +25,11 @@ const getComputerChoice = () => {
 
 //Compare & determine the winner
 const determineWinner = (userChoice, computerChoice) => {
-  const result =
-    userChoice.beating === computerChoice.value
-      ? "You win!"
-      : computerChoice.beating === userChoice.value
-      ? "Computer wins!"
-      : "This game is a tie!";
+  const result = userChoice.beating.includes(computerChoice.value)
+    ? "You win!"
+    : computerChoice.beating.includes(userChoice.value)
+    ? "Computer wins!"
+    : "This game is a tie!";
   console.log(result);
 };
 
@@ -45,9 +44,7 @@ function getChoice(userChoice) {
 //The program!
 const playGame = () => {
   const userChoice = getUserChoice(getChoice("scissors"));
-
   const computerChoice = getComputerChoice();
-
   determineWinner(userChoice, computerChoice);
 };
 
