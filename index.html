@@ -17,12 +17,14 @@
     <div id="app">
       <div class="header">
         <h1>Rock, paper, scissors, lizard, Spock</h1>
-        <button class="rules">Rules</button>
+        <button class="rules">
+          <img src="./media/rules.png" alt="players choice" srcset="" />
+        </button>
       </div>
       <div class="game-area">
         <div class="container player">
           <div class="image-container player">
-            <img src="./media/001-vulcan.png" alt="players choice" srcset="" />
+            <img src="./media/spock.png" alt="players choice" srcset="" />
           </div>
           <div class="controls">
             <button class="prev">
@@ -41,13 +43,16 @@
         </div>
         <div class="container computer">
           <div class="image-container computer">
-            <img
-              src="./media/002-lizard.png"
-              alt="computers choice"
-              srcset=""
-            />
+            <img src="./media/lizard.png" alt="computers choice" srcset="" />
           </div>
         </div>
+      </div>
+      <div class="hidden">
+        <img src="./media/rock.png" alt="rock" srcset="" />
+        <img src="./media/paper.png" alt="paper" srcset="" />
+        <img src="./media/scissors.png" alt="scissors" srcset="" />
+        <img src="./media/spock.png" alt="spock" srcset="" />
+        <img src="./media/lizard.png" alt="lizard" srcset="" />
       </div>
     </div>
     <script src="app.js"></script>
