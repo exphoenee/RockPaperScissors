@@ -1,21 +1,3 @@
-class UI {
-  constructor(choice) {
-    this.app = document.getElementById("app");
-    this.start = document.querySelector(".start");
-    this.next = document.querySelector(".next");
-    this.prev = document.querySelector(".prev");
-    this.rules = document.querySelector(".rules");
-    this.player = document.querySelector(".image-container.player");
-    this.computer = document.querySelector("image-container.computer");
-
-    this.images = document.querySelectorAll(".images");
-
-    this.next.addEventListener("click", () => {});
-    this.prev.addEventListener("click", () => {});
-    this.start.addEventListener("click", () => {});
-  }
-}
-
 class Game {
   constructor() {
     this.choice = [
@@ -25,7 +7,47 @@ class Game {
       { value: "spock", beats: ["rock", "scissors"] },
       { value: "lizard", beats: ["paper", "spock"] },
     ];
-    this.ui = new UI(this.choice);
+
+    this.userChoiceIndex = 0;
+    this.userChoice = this.choice[this.userChoiceIndex];
+    this.computerChoiceIndex = 0;
+    this.computerChoice = this.choice[this.computerChoiceIndex];
+
+    this.app = document.getElementById("app");
+    this.start = document.querySelector(".start");
+    this.next = document.querySelector(".next");
+    this.prev = document.querySelector(".prev");
+    this.rules = document.querySelector(".rules");
+    this.playerImage = document.querySelector(".image-container.player");
+    this.computerImage = document.querySelector("image-container.computer");
+
+    this.images = Array.from(document.querySelectorAll(".images"));
+
+    this.next.addEventListener("click", (e) => {
+      e.preventDefault();
+      console.log(this.userChoiceIndex);
+      this.userChoiceIndex++;
+      if (this.userChoiceIndex > this.choice.length - 1) {
+        this.userChoiceIndex = 0;
+      }
+      console.log(this.playerImage.src, this.images[this.userChoiceIndex].src);
+      this.playerImage.src = this.images[this.userChoiceIndex].src;
+    });
+
+    this.prev.addEventListener("click", (e) => {
+      e.preventDefault();
+      console.log(this.userChoiceIndex);
+      this.userChoiceIndex--;
+      if (this.userChoiceIndex < 0) {
+        this.userChoiceIndex = this.choice.length - 1;
+      }
+      console.log(this.playerImage.src, this.images[this.userChoiceIndex].src);
+      this.playerImage.src = this.images[this.userChoiceIndex].src;
+    });
+
+    this.start.addEventListener("click", () => {});
+    this.rules.addEventListener("click", () => {});
+
     this.generateRules();
     this.playGame();
   }
