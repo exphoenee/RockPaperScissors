@@ -25,30 +25,13 @@ const getComputerChoice = () => {
 
 //Compare & determine the winner
 const determineWinner = (userChoice, computerChoice) => {
-  if (userChoice === computerChoice) {
-    return "This game is a tie!";
-  }
-  if (userChoice === "rock") {
-    if (computerChoice === "scissors") {
-      return "You win!";
-    } else {
-      return "Computer wins!";
-    }
-  }
-  if (userChoice === "paper") {
-    if (computerChoice === "rock") {
-      return "You win!";
-    } else {
-      return "Computer wins!";
-    }
-  }
-  if (userChoice === "scissors") {
-    if (computerChoice === "paper") {
-      return "You win!";
-    } else {
-      return "Computer wins!";
-    }
-  }
+  const result =
+    userChoice.beating === computerChoice.value
+      ? "You win"
+      : computerChoice.beating === userChoice.value
+      ? "Computer wins!"
+      : "This game is a tie!";
+  console.log(result);
 };
 
 function getChoice(userChoice) {
@@ -65,7 +48,7 @@ const playGame = () => {
 
   const computerChoice = getComputerChoice();
 
-  console.log(determineWinner(userChoice, computerChoice));
+  determineWinner(userChoice, computerChoice);
 };
 
 playGame();
