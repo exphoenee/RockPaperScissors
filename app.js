@@ -71,3 +71,11 @@ class Game {
 }
 
 const game = new Game();
+
+class UI {
+  constructor() {
+    this.start = document.querySelector(".start");
+    this.next = document.querySelector(".next");
+    this.prev = document.querySelector(".prev");
+  }
+}
