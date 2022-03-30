@@ -13,8 +13,36 @@
   align-items: center;
 }
 
-.controls {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.controls {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.prev,
+.next,
+.start {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+.prev:hover,
+.next:hover,
+.start:hover {
+  transform: scale(1.08);
+}
+
+.prev img {
+  transform: rotate(180deg);
+  transform-origin: center;
 }
