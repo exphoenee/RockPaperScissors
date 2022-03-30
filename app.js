@@ -1,16 +1,21 @@
 class UI {
-  constructor() {
+  constructor(choice) {
+    this.app = document.getElementById("app");
     this.start = document.querySelector(".start");
     this.next = document.querySelector(".next");
     this.prev = document.querySelector(".prev");
+    this.rules = document.querySelector(".rules");
     this.player = document.querySelector(".image-container.player");
     this.computer = document.querySelector("image-container.computer");
+
+    this.next.addEventListener("click", () => {});
+    this.prev.addEventListener("click", () => {});
+    this.start.addEventListener("click", () => {});
   }
 }
 
 class Game {
   constructor() {
-    this.ui = new UI();
     this.choice = [
       { value: "rock", beats: ["scissors", "lizard"] },
       { value: "paper", beats: ["rock", "spock"] },
@@ -18,6 +23,7 @@ class Game {
       { value: "spock", beats: ["rock", "scissors"] },
       { value: "lizard", beats: ["paper", "spock"] },
     ];
+    this.ui = new UI(this.choice);
     this.generateRules();
     this.playGame();
   }
