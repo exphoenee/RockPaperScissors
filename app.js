@@ -12,6 +12,7 @@ class Game {
     this.userChoice = this.choice[this.userChoiceIndex];
     this.computerChoiceIndex = 0;
     this.computerChoice = this.choice[this.computerChoiceIndex];
+    this.computerRollLength = 15;
 
     this.app = document.getElementById("app");
     this.start = document.querySelector(".start");
@@ -31,6 +32,7 @@ class Game {
         this.userChoiceIndex = 0;
       }
       console.log(this.userChoiceIndex);
+      this.userChoice = this.choice[this.userChoiceIndex];
       this.setHidden();
     });
 
@@ -41,17 +43,26 @@ class Game {
         this.userChoiceIndex = this.choice.length - 1;
       }
       console.log(this.userChoiceIndex);
+      this.userChoice = this.choice[this.userChoiceIndex];
       this.setHidden();
     });
 
     this.start.addEventListener("click", () => {
-      new Array(15).fill(0).forEach((e, i) => {
+      new Array(this.computerRollLength).fill(0).forEach((e, i) => {
         setTimeout(() => {
-          this.computerChoice = Math.floor(Math.random() * this.choice.length);
-          this.setHidden(this.computerImages, this.computerChoice);
-        }, 10 * (16 - i) * (16 - i));
+          this.computerChoiceIndex = Math.floor(
+            Math.random() * this.choice.length
+          );
+          this.computerChoice = this.choice[this.computerChoiceIndex];
+          this.setHidden(this.computerImages, this.computerChoiceIndex);
+          if (i === this.computerRollLength) {
+            this.determineWinner();
+            this.showResult();
+          }
+        }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
       });
     });
+
     this.rules.addEventListener("click", () => {});
 
     this.generateRules();
@@ -81,6 +92,7 @@ class Game {
 
   //Compare & determine the winner
   determineWinner() {
+    console.log(this.computerChoice);
     this.result = this.userChoice.beats.includes(this.computerChoice.value)
       ? "You win!"
       : this.computerChoice.beats.includes(this.userChoice.value)
