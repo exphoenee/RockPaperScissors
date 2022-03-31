@@ -63,8 +63,14 @@ class Game {
       }
     });
 
-    this.rules.addEventListener("click", () => {
-      this.rulesModal.classList.toggle("show");
+    [this.rules, this.rulesModal].forEach((modal) =>
+      modal.addEventListener("click", () => {
+        this.rulesModal.classList.toggle("show");
+      })
+    );
+
+    this.resultModal.addEventListener("click", () => {
+      this.resultModal.classList.toggle("show");
     });
 
     this.generateRules();
@@ -129,7 +135,7 @@ class Game {
   }
 
   showResult() {
-    this.resultModal.innerHTML = `<h2>${this.result}</h2><p>You threw ${this.userChoice.value}</p><p>CPU threw${this.computerChoice.value}</p>`;
+    this.resultModal.innerHTML = `<h2>${this.result}</h2><p>You threw ${this.userChoice.value}</p><p>CPU threw${this.computerChoice.value}</p><p>Click here to close popup!</p>`;
     this.resultModal.classList.add("show");
   }
 
