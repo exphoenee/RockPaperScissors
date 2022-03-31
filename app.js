@@ -124,9 +124,9 @@ class Game {
   }
 
   generateRules() {
-    this.rules = `<h2>Game rules:</h2><p>${this.choice
+    this.rules = `<h2>Game rules:</h2><p>Use the arrows to set your throw, then click to "check" to start the game!</p><p>${this.choice
       .map((c) => `${c.value} beats ${c.beats.join(" and ")}.</p>`)
-      .join("")}`;
+      .join("")}<p style="color: red">Click here to close this popup!</p>`;
     this.rulesModal.innerHTML = this.rules;
   }
 
@@ -135,7 +135,7 @@ class Game {
   }
 
   showResult() {
-    this.resultModal.innerHTML = `<h2>${this.result}</h2><p>You threw ${this.userChoice.value}</p><p>CPU threw${this.computerChoice.value}</p><p>Click here to close popup!</p>`;
+    this.resultModal.innerHTML = `<h2>${this.result}</h2><p>You threw ${this.userChoice.value}</p><p>CPU threw${this.computerChoice.value}</p><p style="color: red">Click here to close this popup!</p>`;
     this.resultModal.classList.add("show");
   }
 
