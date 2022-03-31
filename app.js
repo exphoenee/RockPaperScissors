@@ -49,8 +49,7 @@ class Game {
         setTimeout(() => {
           this.computerChoice = Math.floor(Math.random() * this.choice.length);
           this.setHidden(this.computerImages, this.computerChoice);
-        }, (15 * 15 * 300) / (i * i * i)) +
-          (15 - i) * 200;
+        }, 10 * (16 - i) * (16 - i));
       });
     });
     this.rules.addEventListener("click", () => {});
