@@ -19,6 +19,8 @@ class Game {
     this.next = document.querySelector(".next");
     this.prev = document.querySelector(".prev");
     this.rules = document.querySelector(".rules");
+    this.rulesModal = document.querySelector(".rules.modal");
+    this.resultModal = document.querySelector(".result.modal");
 
     this.playerImages = Array.from(document.querySelectorAll(".images.player"));
     this.computerImages = Array.from(
@@ -31,9 +33,8 @@ class Game {
       if (this.userChoiceIndex > this.choice.length - 1) {
         this.userChoiceIndex = 0;
       }
-      console.log(this.userChoiceIndex);
       this.userChoice = this.choice[this.userChoiceIndex];
-      this.setHidden();
+      this.setUserChoiceImage();
     });
 
     this.prev.addEventListener("click", (e) => {
@@ -42,34 +43,43 @@ class Game {
       if (this.userChoiceIndex < 0) {
         this.userChoiceIndex = this.choice.length - 1;
       }
-      console.log(this.userChoiceIndex);
       this.userChoice = this.choice[this.userChoiceIndex];
-      this.setHidden();
+      this.setUserChoiceImage();
     });
 
     this.start.addEventListener("click", () => {
-      new Array(this.computerRollLength).fill(0).forEach((e, i) => {
+      for (let i = 0; i < this.computerRollLength; i++) {
         setTimeout(() => {
           this.computerChoiceIndex = Math.floor(
             Math.random() * this.choice.length
           );
           this.computerChoice = this.choice[this.computerChoiceIndex];
-          this.setHidden(this.computerImages, this.computerChoiceIndex);
-          if (i === this.computerRollLength) {
+          this.setComputerChoiceImage();
+          if (i === 0) {
             this.determineWinner();
             this.showResult();
           }
         }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
-      });
+      }
     });
 
-    this.rules.addEventListener("click", () => {});
+    this.rules.addEventListener("click", () => {
+      this.rulesModal.classList.toggle("show");
+    });
 
     this.generateRules();
-    this.playGame();
+    this.initialize();
   }
 
-  setHidden(images = this.playerImages, index = this.userChoiceIndex) {
+  setUserChoiceImage() {
+    this.setHidden(this.playerImages, this.userChoiceIndex);
+  }
+
+  setComputerChoiceImage() {
+    this.setHidden(this.computerImages, this.computerChoiceIndex);
+  }
+
+  setHidden(images, index) {
     images.forEach((img) => img.classList.add("hidden"));
     images[index].classList.remove("hidden");
   }
@@ -92,7 +102,6 @@ class Game {
 
   //Compare & determine the winner
   determineWinner() {
-    console.log(this.computerChoice);
     this.result = this.userChoice.beats.includes(this.computerChoice.value)
       ? "You win!"
       : this.computerChoice.beats.includes(this.userChoice.value)
@@ -109,9 +118,10 @@ class Game {
   }
 
   generateRules() {
-    this.rules = `Game rules:\n${this.choice
-      .map((c) => `${c.value} beats ${c.beats.join(" and ")}`)
-      .join("\n")}\n----------------------------`;
+    this.rules = `<h2>Game rules:</h2><p>${this.choice
+      .map((c) => `${c.value} beats ${c.beats.join(" and ")}.</p>`)
+      .join("")}`;
+    this.rulesModal.innerHTML = this.rules;
   }
 
   showRules() {
@@ -119,17 +129,13 @@ class Game {
   }
 
   showResult() {
-    console.log("You threw " + this.userChoice.value);
-    console.log("CPU threw " + this.computerChoice.value);
-    console.log(this.result);
+    this.resultModal.innerHTML = `<h2>${this.result}</h2><p>You threw ${this.userChoice.value}</p><p>CPU threw${this.computerChoice.value}</p>`;
+    this.resultModal.classList.add("show");
   }
 
-  //The program!
-  playGame() {
-    this.showRules();
-    this.getUserChoice("scissors");
-    this.determineWinner();
-    this.showResult();
+  initialize() {
+    this.setUserChoiceImage();
+    this.setComputerChoiceImage();
   }
 }
 
