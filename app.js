@@ -13,9 +13,10 @@ class Game {
     this.computerChoiceIndex = 0;
     this.computerChoice = this.choice[this.computerChoiceIndex];
     this.computerRollLength = 15;
+    this.computerWinsCount = +localStorage.getItem("computerWinsCount") || 0;
+    this.userWinsCount = +localStorage.getItem("userWinsCount") || 0;
 
-    this.computerWinsCount = localStorage.getItem("computerWinsCount") || 0;
-    this.userWinsCount = localStorage.getItem("userWinsCount") || 0;
+    this.popupTimeout = 3;
 
     this.getDomELements();
     this.initializeButton();
@@ -42,7 +43,13 @@ class Game {
     );
   }
 
-  setScores() {}
+  setScores() {
+    console.log(this.computerWins, this.computerWinsCount);
+    this.computerWins.innerHTML = this.computerWinsCount;
+    this.userWins.innerHTML = this.userWinsCount;
+    localStorage.setItem("computerWinsCount", this.computerWinsCount);
+    localStorage.setItem("userWinsCount", this.userWinsCount);
+  }
 
   initializeButton() {
     this.next.addEventListener("click", (e) => {
@@ -75,6 +82,7 @@ class Game {
           this.setComputerChoiceImage();
           if (i === 0) {
             this.determineWinner();
+            this.setScores();
             this.showResult();
           }
         }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
@@ -125,11 +133,15 @@ class Game {
 
   //Compare & determine the winner
   determineWinner() {
-    this.result = this.userChoice.beats.includes(this.computerChoice.value)
-      ? "You win!"
-      : this.computerChoice.beats.includes(this.userChoice.value)
-      ? "Computer wins!"
-      : "This game is a tie!";
+    this.result = "This game is a tie!";
+    if (this.userChoice.beats.includes(this.computerChoice.value)) {
+      this.result = "You win!";
+      this.userWinsCount++;
+    }
+    if (this.computerChoice.beats.includes(this.userChoice.value)) {
+      this.result = "Computer wins!";
+      this.computerWinsCount++;
+    }
   }
 
   getChoice(userChoice) {
@@ -147,7 +159,7 @@ class Game {
     ${this.choice
       .map((c) => `<p>${c.value} beats ${c.beats.join(" and ")}.</p>`)
       .join("")}
-    <p style="color: red">Click here to close this popup!</p>`;
+    <p style="color: red">Click the popup to close it!</p>`;
     this.rulesModal.querySelector(".rules-text").innerHTML = this.rules;
   }
 
@@ -156,18 +168,21 @@ class Game {
     <h2>${this.result}</h2>
     <p>You threw ${this.userChoice.value}</p>
     <p>CPU threw ${this.computerChoice.value}</p>
-    <p style="color: red">Click here to close this popup!</p>`;
+    <p style="color: red">Click the popup to close it!</p>`;
+    const counter = document.createElement("p");
+    this.resultModal.appendChild(counter);
+    counter.classList.add("counter");
+    counter.innerHTML = 3;
     this.resultModal.classList.add("show");
-  }
-
-  saveData() {
-    localStorage.setItem("computerWinsCount", this.computerWinsCount);
-    localStorage.setItem("userWinsCount", this.userWinsCount);
+    setTimeout(() => {
+      this.resultModal.classList.remove("show");
+    }, 3000);
   }
 
   initialize() {
     this.setUserChoiceImage();
     this.setComputerChoiceImage();
+    this.setScores();
   }
 }
 
