@@ -139,7 +139,7 @@ class Game {
       .map((c) => `${c.value} beats ${c.beats.join(" and ")}.</p>`)
       .join("")}
     <p style="color: red">Click here to close this popup!</p>`;
-    this.rulesModal.innerHTML = this.rules;
+    this.rulesModal.querySelector(".rules-text").innerHTML = this.rules;
   }
 
   showResult() {
