@@ -4,8 +4,8 @@ class Game {
       { value: "rock", beats: ["scissors", "lizard"] },
       { value: "paper", beats: ["rock", "spock"] },
       { value: "scissors", beats: ["paper", "lizard"] },
-      { value: "spock", beats: ["rock", "scissors"] },
       { value: "lizard", beats: ["paper", "spock"] },
+      { value: "spock", beats: ["rock", "scissors"] },
     ];
 
     this.userChoiceIndex = 0;
@@ -78,16 +78,18 @@ class Game {
   }
 
   setUserChoiceImage() {
-    this.setHidden(this.playerImages, this.userChoiceIndex);
+    this.setHidden(this.playerImages, this.userChoice);
   }
 
   setComputerChoiceImage() {
-    this.setHidden(this.computerImages, this.computerChoiceIndex);
+    this.setHidden(this.computerImages, this.computerChoice);
   }
 
-  setHidden(images, index) {
+  setHidden(images, choiced) {
     images.forEach((img) => img.classList.add("hidden"));
-    images[index].classList.remove("hidden");
+    images
+      .filter((img) => img.id === choiced.value)[0]
+      .classList.remove("hidden");
   }
 
   //Get user's choice
