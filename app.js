@@ -14,6 +14,13 @@ class Game {
     this.computerChoice = this.choice[this.computerChoiceIndex];
     this.computerRollLength = 15;
 
+    this.getDomELements();
+    this.initializeButton();
+    this.generateRules();
+    this.initialize();
+  }
+
+  getDomELements() {
     this.app = document.getElementById("app");
     this.start = document.querySelector(".start");
     this.next = document.querySelector(".next");
@@ -26,7 +33,9 @@ class Game {
     this.computerImages = Array.from(
       document.querySelectorAll(".images.computer")
     );
+  }
 
+  initializeButton() {
     this.next.addEventListener("click", (e) => {
       e.preventDefault();
       this.userChoiceIndex++;
@@ -72,9 +81,6 @@ class Game {
     this.resultModal.addEventListener("click", () => {
       this.resultModal.classList.toggle("show");
     });
-
-    this.generateRules();
-    this.initialize();
   }
 
   setUserChoiceImage() {
@@ -134,10 +140,6 @@ class Game {
       .join("")}
     <p style="color: red">Click here to close this popup!</p>`;
     this.rulesModal.innerHTML = this.rules;
-  }
-
-  showRules() {
-    console.log(this.rules);
   }
 
   showResult() {
