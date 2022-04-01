@@ -50,6 +50,9 @@ img {
   width: 100%;
 }
 
+.vs {
+  margin: 0 30px;
+}
 .vs img {
   margin-top: 30%;
 }
