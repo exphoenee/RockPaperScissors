@@ -14,6 +14,9 @@ class Game {
     this.computerChoice = this.choice[this.computerChoiceIndex];
     this.computerRollLength = 15;
 
+    this.computerWinsCount = localStorage.getItem("computerWinsCount") || 0;
+    this.userWinsCount = localStorage.getItem("userWinsCount") || 0;
+
     this.getDomELements();
     this.initializeButton();
     this.generateRules();
@@ -26,6 +29,10 @@ class Game {
     this.next = document.querySelector(".next");
     this.prev = document.querySelector(".prev");
     this.rules = document.querySelector(".rules");
+
+    this.computerWins = document.querySelector(".computer-wins");
+    this.userWins = document.querySelector(".user-wins");
+
     this.rulesModal = document.querySelector(".rules.modal");
     this.resultModal = document.querySelector(".result.modal");
 
@@ -34,6 +41,8 @@ class Game {
       document.querySelectorAll(".images.computer")
     );
   }
+
+  setScores() {}
 
   initializeButton() {
     this.next.addEventListener("click", (e) => {
@@ -149,6 +158,11 @@ class Game {
     <p>CPU threw ${this.computerChoice.value}</p>
     <p style="color: red">Click here to close this popup!</p>`;
     this.resultModal.classList.add("show");
+  }
+
+  saveData() {
+    localStorage.setItem("computerWinsCount", this.computerWinsCount);
+    localStorage.setItem("userWinsCount", this.userWinsCount);
   }
 
   initialize() {
