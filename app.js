@@ -134,9 +134,9 @@ class Game {
   generateRules() {
     this.rules = `
     <h2>Game rules:</h2>
-    <p>Use the arrows to set your threw, then click to "check" to start the game!</p>
-    <p>${this.choice
-      .map((c) => `${c.value} beats ${c.beats.join(" and ")}.</p>`)
+    <p>Use the arrows to set your threw,<br />then click to "check" to start the game!</p>
+    ${this.choice
+      .map((c) => `<p>${c.value} beats ${c.beats.join(" and ")}.</p>`)
       .join("")}
     <p style="color: red">Click here to close this popup!</p>`;
     this.rulesModal.querySelector(".rules-text").innerHTML = this.rules;
