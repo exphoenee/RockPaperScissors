@@ -4,10 +4,12 @@ body {
 
 #app {
   font-family: "Luckiest Guy", cursive;
-  width: 80%;
-  height: 80%;
+  width: 50%;
   padding: 5%;
-  margin: 5%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   box-shadow: 2px 5px 10px grey;
   border-radius: 2rem;
   display: flex;
@@ -25,6 +27,7 @@ body {
 
 h1 {
   font-size: 3rem;
+  margin: 0 0 1rem 0;
 }
 
 .game-area {
