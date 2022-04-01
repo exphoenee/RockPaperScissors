@@ -90,7 +90,7 @@ img {
   transform-origin: center;
 }
 
-.hidden {
+.images.hidden {
   display: none;
 }
 
