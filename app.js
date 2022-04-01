@@ -167,16 +167,21 @@ class Game {
     this.resultModal.innerHTML = `
     <h2>${this.result}</h2>
     <p>You threw ${this.userChoice.value}</p>
-    <p>CPU threw ${this.computerChoice.value}</p>
-    <p style="color: red">Click the popup to close it!</p>`;
+    <p>CPU threw ${this.computerChoice.value}</p>`;
     const counter = document.createElement("p");
     this.resultModal.appendChild(counter);
     counter.classList.add("counter");
-    counter.innerHTML = 3;
     this.resultModal.classList.add("show");
-    setTimeout(() => {
-      this.resultModal.classList.remove("show");
-    }, 3000);
+    for (let i = this.popupTimeout; i >= 0; i--) {
+      setTimeout(() => {
+        if (i === 0) {
+          counter.innerHTML = `Popup is closing...`;
+          this.resultModal.classList.remove("show");
+        } else {
+          counter.innerHTML = `Colsing in <span style="width:1.2rem;display:inline-block;">${i}</span> seconds...`;
+        }
+      }, (this.popupTimeout - i) * 3000);
+    }
   }
 
   initialize() {
