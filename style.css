@@ -219,7 +219,8 @@ img {
 }
 
 .counter {
-  text-align: center;
+  margin-top: 1rem;
+  text-align: center
 }
 
 .prev,
