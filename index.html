@@ -17,9 +17,17 @@
     <div id="app">
       <div class="header">
         <h1 id="main-title">Rock, paper, scissors, lizard, Spock</h1>
-        <button class="rules">
-          <img src="./media/rules.png" alt="players choice" srcset="" />
-        </button>
+        <div class="menu">
+          <button class="button rules">
+            <img src="./media/rules.png" alt="players choice" srcset="" />
+          </button>
+          <button class="button statistics">
+            <img src="./media/statistics.png" alt="statistics" srcset="" />
+          </button>
+          <button class="button language">
+            <img src="./media/lang.png" alt="language" srcset="" />
+          </button>
+        </div>
       </div>
       <div class="game-area">
         <div class="container player">
@@ -58,19 +66,19 @@
             />
           </div>
           <div class="controls">
-            <button class="prev">
+            <button class="button prev">
               <img src="./media/play-button.png" alt="" srcset="" />
             </button>
-            <button class="start">
+            <button class="button start">
               <img src="./media/check.png" alt="" srcset="" />
             </button>
-            <button class="next">
+            <button class="button next">
               <img src="./media/play-button.png" alt="" srcset="" />
             </button>
           </div>
         </div>
         <div class="vs">
-          <img src="./media/001-vs-2.png" alt="versus" srcset="" />
+          <img src="./media/vs1.png" alt="versus" srcset="" />
         </div>
         <div class="container computer">
           <h2 id="computer-name">Computer</h2>
@@ -116,7 +124,51 @@
         </div>
       </div>
       <div class="modal result"></div>
+      <div class="modal licence">
+        <div>
+          Icons made by
+          <a
+            href="https://www.flaticon.com/authors/roundicons"
+            title="Roundicons"
+            >Roundicons</a
+          >
+          from
+          <a href="https://www.flaticon.com/" title="Flaticon"
+            >www.flaticon.com</a
+          >
+        </div>
+        <div>
+          Icons made by
+          <a
+            href="https://www.flaticon.com/authors/smashicons"
+            title="Smashicons"
+            >Smashicons</a
+          >
+          from
+          <a href="https://www.flaticon.com/" title="Flaticon"
+            >www.flaticon.com</a
+          >
+        </div>
+        <div>
+          Icons made by
+          <a href="https://www.freepik.com" title="Freepik">Freepik</a> from
+          <a href="https://www.flaticon.com/" title="Flaticon"
+            >www.flaticon.com</a
+          >
+        </div>
+        <div>
+          Icons made by
+          <a href="https://www.flaticon.com/authors/geekclick" title="GeekClick"
+            >GeekClick</a
+          >
+          from
+          <a href="https://www.flaticon.com/" title="Flaticon"
+            >www.flaticon.com</a
+          >
+        </div>
+      </div>
     </div>
+
     <script src="app.js"></script>
   </body>
 </html>
