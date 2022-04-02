@@ -126,6 +126,7 @@ class Game {
     this.rulesButton = document.querySelector(".rules");
     this.statButton = document.querySelector(".statistics");
     this.langButton = document.querySelector(".language");
+    this.langChange = Array.from(document.querySelectorAll(".language-button"));
 
     this.playerName = document.querySelector("#player-name");
     this.computerName = document.querySelector("#computer-name");
@@ -205,6 +206,13 @@ class Game {
 
     this.resultModal.addEventListener("click", () => {
       this.resultModal.classList.toggle("show");
+    });
+
+    this.langChange.forEach((lc) => {
+      lc.addEventListener("click", (e) => {
+        this.language = lc.dataset.lang;
+        this.updateLang();
+      });
     });
   }
 
@@ -314,12 +322,16 @@ class Game {
       .join(", ");
   }
 
-  initialize() {
-    this.setUserChoiceImage();
-    this.setComputerChoiceImage();
+  updateLang() {
     this.playerName.innerHTML = this.getTranslation("playerName");
     this.computerName.innerHTML = this.getTranslation("computerName");
     this.mainTitle.innerHTML = this.getTitle();
+    document.documentElement.setAttribute("lang", this.language);
+  }
+
+  initialize() {
+    this.setUserChoiceImage();
+    this.setComputerChoiceImage();
     this.setScores();
   }
 }
