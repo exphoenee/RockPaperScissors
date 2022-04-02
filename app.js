@@ -9,6 +9,7 @@ class Game {
     ];
 
     this.language = "hu";
+    this.playerNames = ["player", "computer"];
 
     this.dictionary = {
       en: {
@@ -115,7 +116,6 @@ class Game {
 
     this.generateRules();
     this.initialize();
-    console.log(this.statistics);
   }
 
   getDomELements() {
@@ -190,7 +190,6 @@ class Game {
           this.setComputerChoiceImage();
           if (i === 0) {
             this.determineWinner();
-
             this.showResult();
           }
         }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
@@ -256,7 +255,7 @@ class Game {
         .map((item) => item.name === userChoiceObj.name)
         .reduce((acc, curr) => (acc += +curr)) > 0
         ? userChoiceObj
-        : console.log(this.dictionary[this.language].error);
+        : alert(this.dictionary[this.language].error);
   }
 
   //Get computer's choice
@@ -267,7 +266,7 @@ class Game {
 
   //Compare & determine the winner
   determineWinner() {
-    const playerWins = null;
+    let playerWins = null;
     this.result = this.getTranslation("resultTie");
     if (this.userChoice.beats.includes(this.computerChoice.value)) {
       playerWins = true;
@@ -286,14 +285,50 @@ class Game {
   calculateStatistics(playerWins) {
     let winner, looser;
     if (playerWins === true) {
-      winner = this.userChoice;
-      looser = this.computerChoice;
+      winner = this.userChoice.value;
+      looser = this.computerChoice.value;
+      this.statistics["player"][winner] = this.statistics["player"][winner] + 1;
     }
-    if (playerWins === true) {
-      winner = this.computerChoice;
-      looser = this.userChoice;
+    if (playerWins === false) {
+      winner = this.computerChoice.value;
+      looser = this.userChoice.value;
+      this.statistics["computer"][winner] =
+        this.statistics["computer"][winner] + 1;
     }
-    this.statistics[winner];
+    this.updateStatistics();
+    this.createStatistics();
+  }
+
+  createStatistics() {
+    let statisticsTable = document.createElement("table");
+    statisticsTable.classList.add("statistics-table");
+    statisticsTable.innerHTML = `
+      <tr>
+        <th>${this.getTranslation("statisticsPlayer")}</th>
+        <th>${this.getTranslation("statisticsComputer")}</th>
+      </tr>
+      <tr>
+        <td>${this.getTranslation("statisticsRock")}</td>
+        <td>${this.statistics["computer"]["rock"]}</td>
+      </tr>
+      <tr>
+        <td>${this.getTranslation("statisticsPaper")}</td>
+        <td>${this.statistics["computer"]["paper"]}</td>
+      </tr>
+      <tr>
+        <td>${this.getTranslation("statisticsScissors")}</td>
+        <td>${this.statistics["computer"]["scissors"]}</td>
+      </tr>
+      <tr>
+        <td>${this.getTranslation("statisticsLizard")}</td>
+        <td>${this.statistics["computer"]["lizard"]}</td>
+      </tr>
+      <tr>
+        <td>${this.getTranslation("statisticsSpock")}</td>
+        <td>${this.statistics["computer"]["spock"]}</td>
+      </tr>
+    `;
+    this.statisticsModal.appendChild(statisticsTable);
   }
 
   getTranslation(string) {
@@ -368,11 +403,10 @@ class Game {
     document.documentElement.setAttribute("lang", this.language);
   }
   initializeStatistics() {
-    const playerNames = ["player", "computer"];
     const oldStat = localStorage.getItem("statistics");
     oldStat
       ? (this.statistics = JSON.parse(oldStat))
-      : playerNames.forEach((player) => {
+      : this.playerNames.forEach((player) => {
           this.statistics[player] = {};
           this.choice.forEach((item) => {
             this.statistics[player][item.value] = 0;
@@ -388,6 +422,7 @@ class Game {
     this.initializeButton();
     this.initializeStatistics();
     this.setUserChoiceImage();
+    this.createStatistics();
     this.setComputerChoiceImage();
     this.setScores();
   }
