@@ -8,7 +8,8 @@ class Game {
       { value: "spock", beats: ["rock", "scissors"] },
     ];
 
-    this.language = "en";
+    this.language = "hu";
+
     this.dictionary = {
       en: {
         rock: "rock",
@@ -16,6 +17,10 @@ class Game {
         scissors: "scissors",
         lizard: "lizard",
         spock: "Spock",
+        paperT: "paper",
+        scissorsT: "scissors",
+        lizardT: "lizard",
+        spockT: "Spock",
         gameRules: "Game rules",
         rulesDesc:
           'Use the arrows to set your threw,<br />then click to "check" to start the game!',
@@ -25,11 +30,13 @@ class Game {
         youThrew: "You threw",
         CPUThrew: "CPU threw",
         popupClosing: "Closing popup...",
-        popupClosingin: "Closing in",
+        popupClosingIn: "Closing in",
         popupTimeout: "seconds",
         resultTie: "It's a tie!",
         resultPlayerWon: "You won!",
         resultComputerWon: "Computer wins!",
+        computerName: "Computer",
+        playerNeme: "Player",
         error: "Error! You must select a valid option!",
       },
       de: {
@@ -39,6 +46,11 @@ class Game {
         lizard: "Echse",
         spock: "Spock",
         gameRules: "Spielregeln",
+        paperT: "Papier",
+        scissorsT: "Schere",
+        lizardT: "Echse",
+        spockT: "Spock",
+        gameRules: "Spielregeln",
         rulesDesc:
           'Benutze die Pfeile, um deinen Wurf einzustellen, <br /> dann klicke auf "Häkchen", um das Spiel zu starten!',
         beats: "schlägt",
@@ -47,11 +59,13 @@ class Game {
         youThrew: "Du hast geworfen",
         CPUThrew: "Der Computer hat geworfen",
         popupClosing: "Das Popup wird geschlossen!",
-        popupClosingin: "Schließt in",
+        popupClosingIn: "Schließt in",
         popupTimeout: "Sekunden",
         resultTie: "Unentschieden!",
         resultPlayerWon: "Du hast gewonnen!",
         resultComputerWon: "Der Computer hat gewonnen!",
+        computerName: "Komputer",
+        playerName: "Spieler",
         error: "Fehler! Du musst eine gültige Option auswählen!",
       },
       hu: {
@@ -60,6 +74,11 @@ class Game {
         scissors: "olló",
         lizard: "gyík",
         spock: "Spock",
+        rockT: "követ",
+        paperT: "papírt",
+        scissorsT: "ollót",
+        lizardT: "gyíkok",
+        spockT: "Spockot",
         gameRules: "Játékszabályok",
         rulesDesc:
           'Használd a nyilakat a dobás beállításához,<br />majd kattintson a "pipa" gombra a játék indításához!',
@@ -69,11 +88,13 @@ class Game {
         youThrew: "Te dobáltad",
         CPUThrew: "A CPU dobott",
         popupClosing: "A felugró ablak bezárása...",
-        popupClosingin: "Bezáródik",
+        popupClosingIn: "Bezáródik",
         popupTimeout: "másodperc múlva",
         resultTie: "Döntetlen!",
         resultPlayerWon: "Nyertél!",
         resultComputerWon: "A CPU nyert!",
+        computerName: "Számítógép",
+        playerName: "Játékos",
         error: "Hiba! Érvénytelen választás!",
       },
     };
@@ -102,6 +123,9 @@ class Game {
     this.next = document.querySelector(".next");
     this.prev = document.querySelector(".prev");
     this.rules = document.querySelector(".rules");
+    this.playerName = document.querySelector("#player-name");
+    this.computerName = document.querySelector("#computer-name");
+    this.mainTitle = document.querySelector("#main-title");
 
     this.computerWins = document.querySelector(".computer-wins");
     this.userWins = document.querySelector(".user-wins");
@@ -236,9 +260,11 @@ class Game {
     ${this.choice
       .map(
         (c) =>
-          `<p>${c.value} ${this.getTranslation("beats")} ${c.beats.join(
-            ` ${this.getTranslation("beats")} `
-          )}.</p>`
+          `<p>${this.getTranslation(c.value)} ${this.getTranslation(
+            "beats"
+          )} ${c.beats
+            .map((b) => this.getTranslation(b + "T"))
+            .join(` ${this.getTranslation("and")} `)}.</p>`
       )
       .join("")}
     <p style="color: red">${this.getTranslation("popupInstruction")}</p>`;
@@ -248,8 +274,8 @@ class Game {
   showResult() {
     this.resultModal.innerHTML = `
     <h2>${this.result}</h2>
-    <p>You threw ${this.userChoice.value}</p>
-    <p>CPU threw ${this.computerChoice.value}</p>`;
+    <p>${this.getTranslation("youThrew")} ${this.userChoice.value}</p>
+    <p>${this.getTranslation("CPUThrew")} ${this.computerChoice.value}</p>`;
     const counter = document.createElement("p");
     this.resultModal.appendChild(counter);
     counter.classList.add("counter");
@@ -257,18 +283,31 @@ class Game {
     for (let i = this.popupTimeout; i >= 0; i--) {
       setTimeout(() => {
         if (i === 0) {
-          counter.innerHTML = `Popup is closing...`;
+          counter.innerHTML = this.getTranslation("popupClosing");
           this.resultModal.classList.remove("show");
         } else {
-          counter.innerHTML = `Colsing in <span style="width:1.2rem;display:inline-block;">${i}</span> seconds...`;
+          counter.innerHTML = `${this.getTranslation(
+            "popupClosingIn"
+          )} <span style="width:1.2rem;display:inline-block;">${i}</span> ${this.getTranslation(
+            "popupTimeout"
+          )}...`;
         }
       }, (this.popupTimeout - i) * 3000);
     }
   }
 
+  getTitle() {
+    return this.choice
+      .map((threw) => this.getTranslation(threw.value))
+      .join(", ");
+  }
+
   initialize() {
     this.setUserChoiceImage();
     this.setComputerChoiceImage();
+    this.playerName.innerHTML = this.getTranslation("playerName");
+    this.computerName.innerHTML = this.getTranslation("computerName");
+    this.mainTitle.innerHTML = this.getTitle();
     this.setScores();
   }
 }
