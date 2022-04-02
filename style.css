@@ -127,7 +127,7 @@ q:after {
 
 table {
   border-collapse: collapse;
-  border-spacing: 0;
+  box-shadow: 2px 5px 10px #eee;
 }
 
 body {
@@ -295,6 +295,31 @@ img {
 
 .modal.language .language-button {
   margin: 10px;
+}
+
+th,
+td {
+  padding: 0.5rem;
+}
+
+tr:nth-child(even) {
+  background-color: #eee;
+}
+
+tr:nth-child(even):hover {
+  background-color: #ddd;
+}
+
+tr:nth-child(odd):hover {
+  background-color: #e8e8e8;
+}
+
+.computer-block {
+  background-color: #eee;
+}
+
+.player-block {
+  background-color: #fff;
 }
 
 @media screen and (max-width: 600px) {
