@@ -119,10 +119,14 @@ class Game {
 
   getDomELements() {
     this.app = document.getElementById("app");
-    this.start = document.querySelector(".start");
-    this.next = document.querySelector(".next");
-    this.prev = document.querySelector(".prev");
-    this.rules = document.querySelector(".rules");
+
+    this.startButton = document.querySelector(".start");
+    this.nextButton = document.querySelector(".next");
+    this.prevButton = document.querySelector(".prev");
+    this.rulesButton = document.querySelector(".rules");
+    this.statButton = document.querySelector(".statistics");
+    this.langButton = document.querySelector(".language");
+
     this.playerName = document.querySelector("#player-name");
     this.computerName = document.querySelector("#computer-name");
     this.mainTitle = document.querySelector("#main-title");
@@ -132,6 +136,7 @@ class Game {
 
     this.rulesModal = document.querySelector(".rules.modal");
     this.resultModal = document.querySelector(".result.modal");
+    this.resultModal = document.querySelector(".licence.modal");
 
     this.playerImages = Array.from(document.querySelectorAll(".images.player"));
     this.computerImages = Array.from(
@@ -148,7 +153,7 @@ class Game {
   }
 
   initializeButton() {
-    this.next.addEventListener("click", (e) => {
+    this.nextButton.addEventListener("click", (e) => {
       e.preventDefault();
       this.userChoiceIndex++;
       if (this.userChoiceIndex > this.choice.length - 1) {
@@ -158,7 +163,7 @@ class Game {
       this.setUserChoiceImage();
     });
 
-    this.prev.addEventListener("click", (e) => {
+    this.prevButton.addEventListener("click", (e) => {
       e.preventDefault();
       this.userChoiceIndex--;
       if (this.userChoiceIndex < 0) {
@@ -168,7 +173,7 @@ class Game {
       this.setUserChoiceImage();
     });
 
-    this.start.addEventListener("click", () => {
+    this.startButton.addEventListener("click", () => {
       for (let i = 0; i < this.computerRollLength; i++) {
         setTimeout(() => {
           this.computerChoiceIndex = Math.floor(
@@ -185,7 +190,7 @@ class Game {
       }
     });
 
-    [this.rules, this.rulesModal].forEach((modal) =>
+    [this.rulesButton, this.rulesModal].forEach((modal) =>
       modal.addEventListener("click", () => {
         this.rulesModal.classList.toggle("show");
       })
