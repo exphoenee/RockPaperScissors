@@ -224,10 +224,7 @@ img {
   text-align: center;
 }
 
-.prev,
-.next,
-.start,
-.rules {
+.button {
   background: none;
   border: none;
   cursor: pointer;
@@ -235,10 +232,7 @@ img {
   transition: all 0.3s ease-in-out;
 }
 
-.prev:hover,
-.next:hover,
-.start:hover,
-.rules:hover {
+.button:hover {
   transform: scale(1.08);
 }
 
