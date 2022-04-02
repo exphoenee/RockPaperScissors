@@ -8,9 +8,81 @@ class Game {
       { value: "spock", beats: ["rock", "scissors"] },
     ];
 
-    this.userChoiceIndex = 0;
+    this.language = "en";
+    this.dictionary = {
+      en: {
+        rock: "rock",
+        paper: "paper",
+        scissors: "scissors",
+        lizard: "lizard",
+        spock: "Spock",
+        gameRules: "Game rules",
+        rulesDesc:
+          'Use the arrows to set your threw,<br />then click to "check" to start the game!',
+        beats: "beats",
+        and: "and",
+        popupInstruction: "Click the popup to close it!",
+        youThrew: "You threw",
+        CPUThrew: "CPU threw",
+        popupClosing: "Closing popup...",
+        popupClosingin: "Closing in",
+        popupTimeout: "seconds",
+        resultTie: "It's a tie!",
+        resultPlayerWon: "You won!",
+        resultComputerWon: "Computer wins!",
+        error: "Error! You must select a valid option!",
+      },
+      de: {
+        rock: "Stein",
+        paper: "Papier",
+        scissors: "Schere",
+        lizard: "Echse",
+        spock: "Spock",
+        gameRules: "Spielregeln",
+        rulesDesc:
+          'Benutze die Pfeile, um deinen Wurf einzustellen, <br /> dann klicke auf "Häkchen", um das Spiel zu starten!',
+        beats: "schlägt",
+        and: "und",
+        popupInstruction: "Klick auf das Popup-Fenster, um zu schließen!",
+        youThrew: "Du hast geworfen",
+        CPUThrew: "Der Computer hat geworfen",
+        popupClosing: "Das Popup wird geschlossen!",
+        popupClosingin: "Schließt in",
+        popupTimeout: "Sekunden",
+        resultTie: "Unentschieden!",
+        resultPlayerWon: "Du hast gewonnen!",
+        resultComputerWon: "Der Computer hat gewonnen!",
+        error: "Fehler! Du musst eine gültige Option auswählen!",
+      },
+      hu: {
+        rock: "kő",
+        paper: "papír",
+        scissors: "olló",
+        lizard: "gyík",
+        spock: "Spock",
+        gameRules: "Játékszabályok",
+        rulesDesc:
+          'Használd a nyilakat a dobás beállításához,<br />majd kattintson a "pipa" gombra a játék indításához!',
+        beats: "üti",
+        and: "és",
+        popupInstruction: "Kattints a felugró ablakra a bezáráshoz!",
+        youThrew: "Te dobáltad",
+        CPUThrew: "A CPU dobott",
+        popupClosing: "A felugró ablak bezárása...",
+        popupClosingin: "Bezáródik",
+        popupTimeout: "másodperc múlva",
+        resultTie: "Döntetlen!",
+        resultPlayerWon: "Nyertél!",
+        resultComputerWon: "A CPU nyert!",
+        error: "Hiba! Érvénytelen választás!",
+      },
+    };
+
+    this.statistics = {};
+
+    this.userChoiceIndex = Math.floor(Math.random() * this.choice.length);
     this.userChoice = this.choice[this.userChoiceIndex];
-    this.computerChoiceIndex = 0;
+    this.computerChoiceIndex = Math.floor(Math.random() * this.choice.length);
     this.computerChoice = this.choice[this.computerChoiceIndex];
     this.computerRollLength = 15;
     this.computerWinsCount = +localStorage.getItem("computerWinsCount") || 0;
@@ -123,25 +195,30 @@ class Game {
         .map((item) => item.name === userChoiceObj.name)
         .reduce((acc, curr) => (acc += +curr)) > 0
         ? userChoiceObj
-        : console.log("Error! You must select a valid option!");
+        : console.log(this.dictionary[this.language].error);
   }
 
   //Get computer's choice
   getComputerChoice() {
-    this.computerChoice = this.choice[Math.floor(Math.random() * 5)];
+    this.computerChoice =
+      this.choice[Math.floor(Math.random() * this.choice.length)];
   }
 
   //Compare & determine the winner
   determineWinner() {
-    this.result = "This game is a tie!";
+    this.result = this.getTranslation("resultTie");
     if (this.userChoice.beats.includes(this.computerChoice.value)) {
-      this.result = "You win!";
+      this.result = this.getTranslation("resultPlayerWon");
       this.userWinsCount++;
     }
     if (this.computerChoice.beats.includes(this.userChoice.value)) {
-      this.result = "Computer wins!";
+      this.result = this.getTranslation("resultComputerWon");
       this.computerWinsCount++;
     }
+  }
+
+  getTranslation(string) {
+    return this.dictionary[this.language][string];
   }
 
   getChoice(userChoice) {
@@ -154,7 +231,7 @@ class Game {
 
   generateRules() {
     this.rules = `
-    <h2>Game rules:</h2>
+    <h2>${this.getDomELements}:</h2>
     <p>Use the arrows to set your threw,<br />then click to "check" to start the game!</p>
     ${this.choice
       .map((c) => `<p>${c.value} beats ${c.beats.join(" and ")}.</p>`)
