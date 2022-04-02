@@ -137,6 +137,8 @@ class Game {
     this.rulesModal = document.querySelector(".rules.modal");
     this.resultModal = document.querySelector(".result.modal");
     this.resultModal = document.querySelector(".licence.modal");
+    this.languageModal = document.querySelector(".language.modal");
+    this.statisticsModal = document.querySelector(".statistics.modal");
 
     this.playerImages = Array.from(document.querySelectorAll(".images.player"));
     this.computerImages = Array.from(
@@ -145,7 +147,6 @@ class Game {
   }
 
   setScores() {
-    console.log(this.computerWins, this.computerWinsCount);
     this.computerWins.innerHTML = this.computerWinsCount;
     this.userWins.innerHTML = this.userWinsCount;
     localStorage.setItem("computerWinsCount", this.computerWinsCount);
@@ -190,10 +191,16 @@ class Game {
       }
     });
 
-    [this.rulesButton, this.rulesModal].forEach((modal) =>
-      modal.addEventListener("click", () => {
+    [this.rulesButton, this.rulesModal].forEach((elem) =>
+      elem.addEventListener("click", () => {
         this.rulesModal.classList.toggle("show");
       })
+    );
+
+    [this.langButton, this.languageModal].forEach((elem) =>
+      elem.addEventListener("click", () =>
+        this.languageModal.classList.toggle("show")
+      )
     );
 
     this.resultModal.addEventListener("click", () => {
