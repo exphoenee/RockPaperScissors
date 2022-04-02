@@ -127,6 +127,8 @@ class Game {
     this.statButton = document.querySelector(".statistics");
     this.langButton = document.querySelector(".language");
     this.langChange = Array.from(document.querySelectorAll(".language-button"));
+    this.licensingButton = document.querySelector(".licensing");
+    this.statisticsButton = document.querySelector(".statistics");
 
     this.playerName = document.querySelector("#player-name");
     this.computerName = document.querySelector("#computer-name");
@@ -139,6 +141,8 @@ class Game {
     this.resultModal = document.querySelector(".result.modal");
     this.resultModal = document.querySelector(".licence.modal");
     this.languageModal = document.querySelector(".language.modal");
+    this.statisticsModal = document.querySelector(".statistics.modal");
+    this.licenceModal = document.querySelector(".licence.modal");
     this.statisticsModal = document.querySelector(".statistics.modal");
 
     this.playerImages = Array.from(document.querySelectorAll(".images.player"));
@@ -201,6 +205,18 @@ class Game {
     [this.langButton, this.languageModal].forEach((elem) =>
       elem.addEventListener("click", () =>
         this.languageModal.classList.toggle("show")
+      )
+    );
+
+    [this.licensingButton, this.licenceModal].forEach((elem) =>
+      elem.addEventListener("click", () =>
+        this.licenceModal.classList.toggle("show")
+      )
+    );
+
+    [this.statisticsButton, this.statisticsModal].forEach((elem) =>
+      elem.addEventListener("click", () =>
+        this.statisticsModal.classList.toggle("show")
       )
     );
 
