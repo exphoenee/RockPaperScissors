@@ -292,7 +292,8 @@ img {
   display: flex;
   flex-direction: row;
 }
-.modal.language .language-image {
+
+.modal.language .language-button {
   margin: 10px;
 }
 
