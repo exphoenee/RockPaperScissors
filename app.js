@@ -36,7 +36,7 @@ class Game {
         resultPlayerWon: "You won!",
         resultComputerWon: "Computer wins!",
         computerName: "Computer",
-        playerNeme: "Player",
+        playerName: "Player",
         error: "Error! You must select a valid option!",
       },
       de: {
@@ -77,7 +77,7 @@ class Game {
         rockT: "követ",
         paperT: "papírt",
         scissorsT: "ollót",
-        lizardT: "gyíkok",
+        lizardT: "gyíkot",
         spockT: "Spockot",
         gameRules: "Játékszabályok",
         rulesDesc:
@@ -112,9 +112,10 @@ class Game {
     this.popupTimeout = 3;
 
     this.getDomELements();
-    this.initializeButton();
+
     this.generateRules();
     this.initialize();
+    console.log(this.statistics);
   }
 
   getDomELements() {
@@ -189,7 +190,7 @@ class Game {
           this.setComputerChoiceImage();
           if (i === 0) {
             this.determineWinner();
-            this.setScores();
+
             this.showResult();
           }
         }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
@@ -221,7 +222,7 @@ class Game {
     );
 
     this.resultModal.addEventListener("click", () => {
-      this.resultModal.classList.toggle("show");
+      this.resultModal.classList.remove("show");
     });
 
     this.langChange.forEach((lc) => {
@@ -266,15 +267,33 @@ class Game {
 
   //Compare & determine the winner
   determineWinner() {
+    const playerWins = null;
     this.result = this.getTranslation("resultTie");
     if (this.userChoice.beats.includes(this.computerChoice.value)) {
+      playerWins = true;
       this.result = this.getTranslation("resultPlayerWon");
       this.userWinsCount++;
     }
     if (this.computerChoice.beats.includes(this.userChoice.value)) {
+      playerWins = false;
       this.result = this.getTranslation("resultComputerWon");
       this.computerWinsCount++;
     }
+    this.setScores();
+    this.calculateStatistics(playerWins);
+  }
+
+  calculateStatistics(playerWins) {
+    let winner, looser;
+    if (playerWins === true) {
+      winner = this.userChoice;
+      looser = this.computerChoice;
+    }
+    if (playerWins === true) {
+      winner = this.computerChoice;
+      looser = this.userChoice;
+    }
+    this.statistics[winner];
   }
 
   getTranslation(string) {
@@ -310,8 +329,12 @@ class Game {
   showResult() {
     this.resultModal.innerHTML = `
     <h2>${this.result}</h2>
-    <p>${this.getTranslation("youThrew")} ${this.userChoice.value}</p>
-    <p>${this.getTranslation("CPUThrew")} ${this.computerChoice.value}</p>`;
+    <p>${this.getTranslation("youThrew")} ${this.getTranslation(
+      this.userChoice.value + "T"
+    )}</p>
+    <p>${this.getTranslation("CPUThrew")} ${this.getTranslation(
+      this.computerChoice.value + "T"
+    )}</p>`;
     const counter = document.createElement("p");
     this.resultModal.appendChild(counter);
     counter.classList.add("counter");
@@ -344,8 +367,26 @@ class Game {
     this.mainTitle.innerHTML = this.getTitle();
     document.documentElement.setAttribute("lang", this.language);
   }
+  initializeStatistics() {
+    const playerNames = ["player", "computer"];
+    const oldStat = localStorage.getItem("statistics");
+    oldStat
+      ? (this.statistics = JSON.parse(oldStat))
+      : playerNames.forEach((player) => {
+          this.statistics[player] = {};
+          this.choice.forEach((item) => {
+            this.statistics[player][item.value] = 0;
+          });
+        });
+  }
+
+  updateStatistics() {
+    localStorage.setItem("statistics", JSON.stringify(this.statistics));
+  }
 
   initialize() {
+    this.initializeButton();
+    this.initializeStatistics();
     this.setUserChoiceImage();
     this.setComputerChoiceImage();
     this.setScores();
