@@ -38,6 +38,8 @@ class Game {
         resultComputerWon: "Computer wins!",
         computerName: "Computer",
         playerName: "Player",
+        threws: "Threws",
+        wins: "wins",
         error: "Error! You must select a valid option!",
       },
       de: {
@@ -67,6 +69,8 @@ class Game {
         resultComputerWon: "Der Computer hat gewonnen!",
         computerName: "Komputer",
         playerName: "Spieler",
+        threws: "geworfen",
+        wins: "Gewinnt",
         error: "Fehler! Du musst eine gültige Option auswählen!",
       },
       hu: {
@@ -82,12 +86,12 @@ class Game {
         spockT: "Spockot",
         gameRules: "Játékszabályok",
         rulesDesc:
-          'Használd a nyilakat a dobás beállításához,<br />majd kattintson a "pipa" gombra a játék indításához!',
+          'A nyilakkal a válaszd ki amit mutatni akarsz,<br />majd kattintson a "pipa" gombra a játék indításához!',
         beats: "üti",
         and: "és",
         popupInstruction: "Kattints a felugró ablakra a bezáráshoz!",
-        youThrew: "Te dobáltad",
-        CPUThrew: "A CPU dobott",
+        youThrew: "Te mutattál",
+        CPUThrew: "A CPU mutatott",
         popupClosing: "A felugró ablak bezárása...",
         popupClosingIn: "Bezáródik",
         popupTimeout: "másodperc múlva",
@@ -96,6 +100,8 @@ class Game {
         resultComputerWon: "A CPU nyert!",
         computerName: "Számítógép",
         playerName: "Játékos",
+        threws: "Mutatott",
+        wins: "Nyert",
         error: "Hiba! Érvénytelen választás!",
       },
     };
@@ -140,7 +146,6 @@ class Game {
 
     this.rulesModal = document.querySelector(".rules.modal");
     this.resultModal = document.querySelector(".result.modal");
-    this.resultModal = document.querySelector(".licence.modal");
     this.languageModal = document.querySelector(".language.modal");
     this.statisticsModal = document.querySelector(".statistics.modal");
     this.licenceModal = document.querySelector(".licence.modal");
@@ -300,35 +305,37 @@ class Game {
   }
 
   createStatistics() {
-    let statisticsTable = document.createElement("table");
-    statisticsTable.classList.add("statistics-table");
-    statisticsTable.innerHTML = `
-      <tr>
-        <th>${this.getTranslation("statisticsPlayer")}</th>
-        <th>${this.getTranslation("statisticsComputer")}</th>
-      </tr>
-      <tr>
-        <td>${this.getTranslation("statisticsRock")}</td>
-        <td>${this.statistics["computer"]["rock"]}</td>
-      </tr>
-      <tr>
-        <td>${this.getTranslation("statisticsPaper")}</td>
-        <td>${this.statistics["computer"]["paper"]}</td>
-      </tr>
-      <tr>
-        <td>${this.getTranslation("statisticsScissors")}</td>
-        <td>${this.statistics["computer"]["scissors"]}</td>
-      </tr>
-      <tr>
-        <td>${this.getTranslation("statisticsLizard")}</td>
-        <td>${this.statistics["computer"]["lizard"]}</td>
-      </tr>
-      <tr>
-        <td>${this.getTranslation("statisticsSpock")}</td>
-        <td>${this.statistics["computer"]["spock"]}</td>
-      </tr>
-    `;
-    this.statisticsModal.appendChild(statisticsTable);
+    const header = [
+      this.getTranslation("playerName"),
+      this.getTranslation("threws"),
+      this.getTranslation("wins"),
+    ];
+
+    const table = `<table><thead>
+      <tr>${header.map((col) => `<th>${col}</th>`).join("")}</tr>
+      </thead><tbody>
+      ${Object.keys(this.statistics)
+        .map((player) => {
+          return `${Object.keys(this.statistics[player])
+            .map((threw, index) => {
+              return `
+            <tr>${
+              index == 0
+                ? `<td rowspan="5" class="${player}-block">${this.getTranslation(
+                    player + "Name"
+                  )}</td>`
+                : ``
+            }
+              <td class="${player}-cell">${this.getTranslation(threw)}</td>
+              <td class="${player}-cell">${this.statistics[player][threw]}</td>
+            </tr>`;
+            })
+            .join("")}`;
+        })
+        .join("")}
+      </tbody></table>`;
+
+    this.statisticsModal.innerHTML = table;
   }
 
   getTranslation(string) {
