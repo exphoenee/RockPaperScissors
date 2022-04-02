@@ -288,6 +288,14 @@ img {
   left: 50%;
 }
 
+.modal.language {
+  display: flex;
+  flex-direction: row;
+}
+.modal.language .language-image {
+  margin: 10px;
+}
+
 @media screen and (max-width: 600px) {
   #app {
     width: 90%;
