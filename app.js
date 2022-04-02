@@ -231,12 +231,17 @@ class Game {
 
   generateRules() {
     this.rules = `
-    <h2>${this.getDomELements}:</h2>
-    <p>Use the arrows to set your threw,<br />then click to "check" to start the game!</p>
+    <h2>${this.getTranslation("gameRules")}:</h2>
+    <p>${this.getTranslation("rulesDesc")}</p>
     ${this.choice
-      .map((c) => `<p>${c.value} beats ${c.beats.join(" and ")}.</p>`)
+      .map(
+        (c) =>
+          `<p>${c.value} ${this.getTranslation("beats")} ${c.beats.join(
+            ` ${this.getTranslation("beats")} `
+          )}.</p>`
+      )
       .join("")}
-    <p style="color: red">Click the popup to close it!</p>`;
+    <p style="color: red">${this.getTranslation("popupInstruction")}</p>`;
     this.rulesModal.querySelector(".rules-text").innerHTML = this.rules;
   }
 
