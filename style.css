@@ -4,6 +4,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  text-transform: uppercase;
 }
 
 html,
@@ -220,7 +221,7 @@ img {
 
 .counter {
   margin-top: 1rem;
-  text-align: center
+  text-align: center;
 }
 
 .prev,
