@@ -123,6 +123,7 @@ class Game {
 
   getDomELements() {
     this.app = document.getElementById("app");
+    this.favicon = document.querySelector("#favicon");
 
     //buttons
     this.startButton = document.querySelector(".start.button");
@@ -159,6 +160,19 @@ class Game {
     this.computerImages = Array.from(
       document.querySelectorAll(".images.computer")
     );
+  }
+
+  initTitleChange() {
+    setInterval(() => {
+      const choice =
+        this.choice[Math.floor(Math.random() * this.choice.length)];
+
+      const choiceName = this.getTranslation(choice.value);
+      document.title =
+        choiceName[0].toUpperCase() + choiceName.substring(1) + "!";
+
+      this.favicon.href = `./media/${choice.value}.png`;
+    }, 1000);
   }
 
   setScores() {
@@ -486,6 +500,7 @@ class Game {
     this.setUserChoiceImage();
     this.setComputerChoiceImage();
     this.updateLang();
+    this.initTitleChange();
   }
 }
 
