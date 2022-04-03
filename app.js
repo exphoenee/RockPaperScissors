@@ -163,42 +163,56 @@ class Game {
     localStorage.setItem("userWinsCount", this.userWinsCount);
   }
 
-  initializeButton() {
-    this.nextButton.addEventListener("click", (e) => {
+  initButton(button, cb) {
+    button.addEventListener("click", (e) => {
       e.preventDefault();
-      this.userChoiceIndex++;
-      if (this.userChoiceIndex > this.choice.length - 1) {
-        this.userChoiceIndex = 0;
-      }
-      this.userChoice = this.choice[this.userChoiceIndex];
-      this.setUserChoiceImage();
+      cb();
     });
+  }
 
-    this.prevButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      this.userChoiceIndex--;
-      if (this.userChoiceIndex < 0) {
-        this.userChoiceIndex = this.choice.length - 1;
-      }
-      this.userChoice = this.choice[this.userChoiceIndex];
-      this.setUserChoiceImage();
-    });
+  nextThrew() {
+    this.userChoiceIndex++;
+    if (this.userChoiceIndex > this.choice.length - 1) {
+      this.userChoiceIndex = 0;
+    }
+    this.userChoice = this.choice[this.userChoiceIndex];
+    this.setUserChoiceImage();
+  }
 
-    this.startButton.addEventListener("click", () => {
-      for (let i = 0; i < this.computerRollLength; i++) {
-        setTimeout(() => {
-          this.computerChoiceIndex = Math.floor(
-            Math.random() * this.choice.length
-          );
-          this.computerChoice = this.choice[this.computerChoiceIndex];
-          this.setComputerChoiceImage();
-          if (i === 0) {
-            this.determineWinner();
-            this.showResult();
-          }
-        }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
-      }
-    });
+  prevThrew() {
+    this.userChoiceIndex--;
+    if (this.userChoiceIndex < 0) {
+      this.userChoiceIndex = this.choice.length - 1;
+    }
+    this.userChoice = this.choice[this.userChoiceIndex];
+    this.setUserChoiceImage();
+  }
+
+  startGame() {
+    for (let i = 0; i < this.computerRollLength; i++) {
+      setTimeout(() => {
+        this.computerChoiceIndex = Math.floor(
+          Math.random() * this.choice.length
+        );
+        this.computerChoice = this.choice[this.computerChoiceIndex];
+        this.setComputerChoiceImage();
+        if (i === 0) {
+          this.determineWinner();
+          this.showResult();
+        }
+      }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
+    }
+  }
+
+  initializeButtons() {
+    const buttonActions = [
+      { button: this.nextButton, action: this.nextThrew.bind(this) },
+      { button: this.prevButton, action: this.prevThrew.bind(this) },
+      { button: this.startButton, action: this.startGame.bind(this) },
+    ];
+    buttonActions.forEach(({ button, action }) =>
+      this.initButton(button, action)
+    );
   }
 
   initializeModals() {
@@ -438,7 +452,7 @@ class Game {
 
   initialize() {
     this.initializeStatistics();
-    this.initializeButton();
+    this.initializeButtons();
     this.initializeModals();
     this.setUserChoiceImage();
     this.setComputerChoiceImage();
