@@ -109,6 +109,29 @@ section {
   display: block;
 }
 
+.dark table,
+.dark {
+  background: rgba(16, 16, 16, 0.8) !important;
+  color: #eee !important;
+  box-shadow: 2px 5px 10px black !important;
+}
+
+body {
+  background: white;
+}
+
+.dark tr:nth-child(even) {
+  background-color: #111 !important;
+}
+
+.dark tr:nth-child(even):hover {
+  background-color: #222 !important;
+}
+
+.dark tr:nth-child(odd):hover {
+  background-color: #1a1a1a !important;
+}
+
 ol,
 ul {
   list-style: none;
@@ -148,6 +171,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  transition: all 0.3s ease-in-out;
 }
 
 .header {
@@ -176,6 +200,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  margin-top: 2rem;
 }
 
 .container {
@@ -215,7 +240,7 @@ img {
 .controls {
   margin-top: 1rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -230,6 +255,32 @@ img {
   cursor: pointer;
   outline: none;
   transition: all 0.3s ease-in-out;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  position: relative;
+  margin: 0 0.5rem;
+}
+
+.button img {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.button img.off {
+  opacity: 0;
+  top: 0%;
+  left: 0%;
+  transform: rotateY(180deg);
+}
+
+.button img.on {
+  opacity: 1;
+  top: 0%;
+  left: 0%;
 }
 
 .button:hover {
