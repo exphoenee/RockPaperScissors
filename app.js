@@ -120,7 +120,6 @@ class Game {
 
     this.getDomELements();
 
-    this.generateRules();
     this.initialize();
   }
 
@@ -402,6 +401,8 @@ class Game {
   }
 
   updateLang() {
+    this.generateRules();
+    this.createStatistics();
     this.playerName.innerHTML = this.getTranslation("playerName");
     this.computerName.innerHTML = this.getTranslation("computerName");
     this.mainTitle.innerHTML = this.getTitle();
@@ -424,11 +425,11 @@ class Game {
   }
 
   initialize() {
-    this.initializeButton();
     this.initializeStatistics();
+    this.initializeButton();
     this.setUserChoiceImage();
-    this.createStatistics();
     this.setComputerChoiceImage();
+    this.updateLang();
     this.setScores();
   }
 }
