@@ -196,6 +196,17 @@ p {
   font-size: 1rem;
 }
 
+.w4s {
+  display: block;
+  margin: 0 auto 1rem auto;
+  width: 120px;
+  height: 120px;
+}
+
+.minilogo {
+  width: 100%;
+}
+
 .game-area {
   display: flex;
   justify-content: center;
