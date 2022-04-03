@@ -239,8 +239,8 @@ class Game {
       },
     ];
 
-    modalMaps.forEach((modalMap) => {
-      this.initModal(modalMap.activator, modalMap.modal);
+    modalMaps.forEach(({ activator, modal }) => {
+      this.initModal(activator, modal);
     });
 
     this.langChange.forEach((lc) => {
