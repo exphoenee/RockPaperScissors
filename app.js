@@ -113,8 +113,6 @@ class Game {
     this.computerChoiceIndex = Math.floor(Math.random() * this.choice.length);
     this.computerChoice = this.choice[this.computerChoiceIndex];
     this.computerRollLength = 15;
-    this.computerWinsCount = +localStorage.getItem("computerWinsCount") || 0;
-    this.userWinsCount = +localStorage.getItem("userWinsCount") || 0;
 
     this.popupTimeout = 3;
 
@@ -157,10 +155,15 @@ class Game {
   }
 
   setScores() {
-    this.computerWins.innerHTML = this.computerWinsCount;
-    this.userWins.innerHTML = this.userWinsCount;
-    localStorage.setItem("computerWinsCount", this.computerWinsCount);
-    localStorage.setItem("userWinsCount", this.userWinsCount);
+    const results = {};
+    Object.keys(this.statistics).forEach((player) => {
+      results[player] = Object.keys(this.statistics[player]).reduce(
+        (sum, threw) => sum + +this.statistics[player][threw],
+        0
+      );
+    });
+    this.computerWins.innerHTML = results.computer;
+    this.userWins.innerHTML = results.player;
   }
 
   initButton(button, cb) {
@@ -198,6 +201,7 @@ class Game {
         this.setComputerChoiceImage();
         if (i === 0) {
           this.determineWinner();
+          this.initializeStatistics();
           this.showResult();
         }
       }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
@@ -306,12 +310,10 @@ class Game {
     if (this.userChoice.beats.includes(this.computerChoice.value)) {
       playerWins = true;
       this.result = this.getTranslation("resultPlayerWon");
-      this.userWinsCount++;
     }
     if (this.computerChoice.beats.includes(this.userChoice.value)) {
       playerWins = false;
       this.result = this.getTranslation("resultComputerWon");
-      this.computerWinsCount++;
     }
     this.setScores();
     this.calculateStatistics(playerWins);
@@ -444,6 +446,8 @@ class Game {
             this.statistics[player][item.value] = 0;
           });
         });
+
+    this.setScores();
   }
 
   updateStatistics() {
@@ -457,7 +461,6 @@ class Game {
     this.setUserChoiceImage();
     this.setComputerChoiceImage();
     this.updateLang();
-    this.setScores();
   }
 }
 
