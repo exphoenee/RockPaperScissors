@@ -135,7 +135,7 @@ body {
 }
 
 #app {
-  font-family: "Luckiest Guy", cursive;
+  font-family: "Rammetto One", cursive;
   width: 50%;
   padding: 5%;
   position: fixed;
@@ -158,18 +158,18 @@ body {
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 2rem;
   margin: 0 0 1rem 0;
   text-align: center;
 }
 
 h2 {
   margin-bottom: 1rem;
-  font-size: 2rem;
+  font-size: 1.3rem;
 }
 
 p {
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .game-area {
