@@ -314,14 +314,6 @@ tr:nth-child(odd):hover {
   background-color: #e8e8e8;
 }
 
-.computer-block {
-  background-color: #eee;
-}
-
-.player-block {
-  background-color: #fff;
-}
-
 @media screen and (max-width: 600px) {
   #app {
     width: 90%;
