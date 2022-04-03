@@ -305,14 +305,12 @@ class Game {
   }
 
   createStatistics() {
-    const header = [
-      this.getTranslation("playerName"),
-      this.getTranslation("threws"),
-      this.getTranslation("wins"),
-    ];
+    const header = ["playerName", "threws", "wins"];
 
     const table = `<table><thead>
-      <tr>${header.map((col) => `<th>${col}</th>`).join("")}</tr>
+      <tr>${header
+        .map((col) => `<th>${this.getTranslation(col)}</th>`)
+        .join("")}</tr>
       </thead><tbody>
       ${Object.keys(this.statistics)
         .map((player) => {
