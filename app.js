@@ -304,30 +304,27 @@ class Game {
   }
 
   createStatistics() {
-    const header = ["playerName", "threws", "wins"];
+    const header = ["wins", ...this.playerNames.map((pn) => pn + "Name")];
+
+    console.log(this.statistics);
 
     const table = `<table><thead>
       <tr>${header
-        .map((col) => `<th>${this.getTranslation(col)}</th>`)
+        .map((col, index) => `<th>${this.getTranslation(col)}</th>`)
         .join("")}</tr>
       </thead><tbody>
-      ${Object.keys(this.statistics)
-        .map((player) => {
-          return `${Object.keys(this.statistics[player])
-            .map((threw, index) => {
-              return `
-            <tr>${
-              index == 0
-                ? `<td rowspan="5" class="${player}-block">${this.getTranslation(
-                    player + "Name"
-                  )}</td>`
-                : ``
-            }
-              <td class="${player}-cell">${this.getTranslation(threw)}</td>
-              <td class="${player}-cell">${this.statistics[player][threw]}</td>
+      ${Object.keys(this.statistics["player"])
+        .map((threw) => {
+          return `
+            <tr>
+              <td class="player-cell">${this.getTranslation(threw)}</td>
+              <td class="player-cell" style="text-align:center">${
+                this.statistics["player"][threw]
+              }</td>
+              <td class="computer-cell" style="text-align:center">${
+                this.statistics["computer"][threw]
+              }</td>
             </tr>`;
-            })
-            .join("")}`;
         })
         .join("")}
       </tbody></table>`;
