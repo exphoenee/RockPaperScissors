@@ -314,11 +314,41 @@ tr:nth-child(odd):hover {
   background-color: #e8e8e8;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
+  #app {
+    width: 80%;
+  }
+  .image-container img {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 900px) {
   #app {
     width: 90%;
   }
   .modal.rules {
     flex-direction: column;
+  }
+  .button {
+    width: 50px;
+  }
+  .image-container img {
+    width: 120px !important;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .image-container img {
+    width: 64px !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .game-area {
+    flex-direction: column !important;
+  }
+  .vs img {
+    margin: 0;
   }
 }
