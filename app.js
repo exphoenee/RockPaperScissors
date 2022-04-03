@@ -124,30 +124,37 @@ class Game {
   getDomELements() {
     this.app = document.getElementById("app");
 
-    this.startButton = document.querySelector(".start");
-    this.nextButton = document.querySelector(".next");
-    this.prevButton = document.querySelector(".prev");
-    this.rulesButton = document.querySelector(".rules");
-    this.statButton = document.querySelector(".statistics");
-    this.langButton = document.querySelector(".language");
-    this.langChange = Array.from(document.querySelectorAll(".language-button"));
-    this.licensingButton = document.querySelector(".licensing");
-    this.statisticsButton = document.querySelector(".statistics");
+    //buttons
+    this.startButton = document.querySelector(".start.button");
+    this.nextButton = document.querySelector(".next.button");
+    this.prevButton = document.querySelector(".prev.button");
+    this.rulesButton = document.querySelector(".rules.button");
+    this.statButton = document.querySelector(".statistics.button");
+    this.langButton = document.querySelector(".language.button");
+    this.licensingButton = document.querySelector(".licensing.button");
+    this.statisticsButton = document.querySelector(".statistics.button");
+    this.lightdark = document.querySelector(".lightdark.button");
 
-    this.playerName = document.querySelector("#player-name");
-    this.computerName = document.querySelector("#computer-name");
-    this.mainTitle = document.querySelector("#main-title");
-
-    this.computerWins = document.querySelector(".computer-wins");
-    this.userWins = document.querySelector(".user-wins");
-
+    //modals
     this.rulesModal = document.querySelector(".rules.modal");
     this.resultModal = document.querySelector(".result.modal");
     this.languageModal = document.querySelector(".language.modal");
     this.statisticsModal = document.querySelector(".statistics.modal");
     this.licensingModal = document.querySelector(".licensing.modal");
-    this.statisticsModal = document.querySelector(".statistics.modal");
 
+    //language changers
+    this.langChange = Array.from(document.querySelectorAll(".language-button"));
+
+    //scoreboard
+    this.playerName = document.querySelector("#player-name");
+    this.computerName = document.querySelector("#computer-name");
+    this.computerWins = document.querySelector(".computer-wins");
+    this.userWins = document.querySelector(".user-wins");
+
+    //main title
+    this.mainTitle = document.querySelector("#main-title");
+
+    //threw icons
     this.playerImages = Array.from(document.querySelectorAll(".images.player"));
     this.computerImages = Array.from(
       document.querySelectorAll(".images.computer")
@@ -208,11 +215,29 @@ class Game {
     }
   }
 
+  lightChange() {
+    Array.from(this.lightdark.children).forEach((child) => {
+      child.classList.toggle("on");
+      child.classList.toggle("off");
+    });
+    const changeDark = [
+      this.app.parentElement,
+      this.app,
+      this.rulesModal,
+      this.resultModal,
+      this.languageModal,
+      this.licensingModal,
+      this.statisticsModal,
+    ];
+    changeDark.forEach((elem) => elem.classList.toggle("dark"));
+  }
+
   initializeButtons() {
     const buttonActions = [
       { button: this.nextButton, action: this.nextThrew.bind(this) },
       { button: this.prevButton, action: this.prevThrew.bind(this) },
       { button: this.startButton, action: this.startGame.bind(this) },
+      { button: this.lightdark, action: this.lightChange.bind(this) },
     ];
     buttonActions.forEach(({ button, action }) =>
       this.initButton(button, action)
