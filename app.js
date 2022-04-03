@@ -8,7 +8,8 @@ class Game {
       { value: "spock", beats: ["rock", "scissors"] },
     ];
 
-    this.language = "hu";
+    this.language = localStorage.getItem("language") || "hu";
+    this.darkmode = localStorage.getItem("darkmode") || "ligth";
     this.playerNames = ["player", "computer"];
 
     this.dictionary = {
@@ -244,6 +245,10 @@ class Game {
       this.statisticsModal,
     ];
     changeDark.forEach((elem) => elem.classList.toggle("dark"));
+    localStorage.setItem(
+      "darkmode",
+      this.app.parentElement.classList.contains("dark")
+    );
   }
 
   initializeButtons() {
@@ -474,6 +479,7 @@ class Game {
     this.computerName.innerHTML = this.getTranslation("computerName");
     this.mainTitle.innerHTML = this.getTitle();
     document.documentElement.setAttribute("lang", this.language);
+    localStorage.setItem("language", this.language);
   }
   initializeStatistics() {
     const oldStat = localStorage.getItem("statistics");
@@ -493,7 +499,14 @@ class Game {
     localStorage.setItem("statistics", JSON.stringify(this.statistics));
   }
 
+  initilizeDarkmode() {
+    if (this.darkmode === "true") {
+      this.lightChange();
+    }
+  }
+
   initialize() {
+    this.initilizeDarkmode();
     this.initializeStatistics();
     this.initializeButtons();
     this.initializeModals();
