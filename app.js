@@ -199,7 +199,9 @@ class Game {
         }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
       }
     });
+  }
 
+  initializeModals() {
     const modalMaps = [
       {
         activator: [this.rulesButton, this.rulesModal],
@@ -437,6 +439,7 @@ class Game {
   initialize() {
     this.initializeStatistics();
     this.initializeButton();
+    this.initializeModals();
     this.setUserChoiceImage();
     this.setComputerChoiceImage();
     this.updateLang();
