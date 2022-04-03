@@ -161,6 +161,7 @@ body {
   color: #eee !important;
   box-shadow: 2px 5px 10px black !important;
 }
+
 .modal.rules.dark img {
   -webkit-filter: invert(1);
 
@@ -324,12 +325,11 @@ img {
   box-shadow: 2px 5px 10px grey;
   padding: 5%;
   border-radius: 2rem;
-
   z-index: 1;
   opacity: 0;
   top: 100%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.3);
+  transform: translate(-50%, -50%) scale(0.3) skew(30deg, 30deg) rotate(270deg);
   transition: all 0.5s ease-in-out;
 }
 
@@ -354,7 +354,7 @@ img {
 
 .modal.show {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1) skew(0deg, 0deg) rotate(0deg);
   top: 50%;
   left: 50%;
 }
