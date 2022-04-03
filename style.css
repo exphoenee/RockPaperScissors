@@ -109,33 +109,6 @@ section {
   display: block;
 }
 
-.dark table,
-.dark {
-  background: rgba(16, 16, 16, 0.8) !important;
-  color: #eee !important;
-  box-shadow: 2px 5px 10px black !important;
-}
-.modal.rules.dark img {
-  -webkit-filter: invert(1);
-
-  filter: invert(1);
-}
-body {
-  background: white;
-}
-
-.dark tr:nth-child(even) {
-  background-color: #111 !important;
-}
-
-.dark tr:nth-child(even):hover {
-  background-color: #222 !important;
-}
-
-.dark tr:nth-child(odd):hover {
-  background-color: #1a1a1a !important;
-}
-
 ol,
 ul {
   list-style: none;
@@ -176,6 +149,38 @@ body {
   align-items: center;
   flex-direction: column;
   transition: all 0.3s ease-in-out;
+}
+
+body {
+  background: white;
+}
+
+.dark table,
+.dark {
+  background: rgba(16, 16, 16, 0.8) !important;
+  color: #eee !important;
+  box-shadow: 2px 5px 10px black !important;
+}
+.modal.rules.dark img {
+  -webkit-filter: invert(1);
+
+  filter: invert(1);
+}
+
+.dark tr:nth-child(even) {
+  background-color: #222 !important;
+}
+
+.dark tr:nth-child(even):hover {
+  background-color: #111 !important;
+}
+
+.dark tr:nth-child(odd) {
+  background-color: #1a1a1a !important;
+}
+
+.dark tr:nth-child(odd):hover {
+  background-color: #2a2a2a !important;
 }
 
 .header {
