@@ -182,11 +182,17 @@ class Game {
           img.src = URL.createObjectURL(blob);
           img.alt = `image: ${fileName.split(".")[0]}`;
           img.classList.remove("loader-image");
-          this.imageLoaded++;
-          if (this.imageLoaded === this.imageCount) {
-            this.app.classList.remove("hidden");
-            this.loaderScreen.remove();
-          }
+          const loaded = img.addEventListener("load", () => {
+            this.imageLoaded++;
+            if (this.imageLoaded === this.imageCount) {
+              this.app.classList.remove("off");
+              this.loaderScreen.classList.add("off");
+              this.loaderScreen.addEventListener("transitionend", () =>
+                this.loaderScreen.remove()
+              );
+            }
+            loaded.removeEventListener("load");
+          });
         })
         .catch((error) => console.log(error))
     );
@@ -536,14 +542,16 @@ class Game {
 
   initialize() {
     this.initializeImages();
-    this.initilizeDarkmode();
-    this.initializeStatistics();
-    this.initializeButtons();
-    this.initializeModals();
-    this.setUserChoiceImage();
-    this.setComputerChoiceImage();
-    this.updateLang();
-    this.initTitleChange();
+    window.onload = () => {
+      this.initilizeDarkmode();
+      this.initializeStatistics();
+      this.initializeButtons();
+      this.initializeModals();
+      this.setUserChoiceImage();
+      this.setComputerChoiceImage();
+      this.updateLang();
+      this.initTitleChange();
+    };
   }
 }
 
