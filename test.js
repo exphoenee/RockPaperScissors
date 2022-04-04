@@ -7,12 +7,15 @@ function asynImageLoader(img) {
       .blob()
       .then((blob) => {
         img.src = URL.createObjectURL(blob);
+        img.alt = `image: ${fileName.split(".")[0]}`;
         img.classList.remove("loader-image");
       })
       .catch((error) => console.log(error))
   );
 }
 
-const img = document.querySelector("img");
+const images = document.querySelectorAll(".loader-image");
 
-asynImageLoader(img);
+images.forEach((img) => {
+  asynImageLoader(img);
+});
