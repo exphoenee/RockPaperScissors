@@ -13,6 +13,7 @@ class Game {
     this.language = localStorage.getItem("language") || "hu";
     this.darkmode = localStorage.getItem("darkmode") || "ligth";
     this.playerNames = ["player", "computer"];
+    this.imageLoaded = 0;
 
     this.dictionary = {
       en: {
@@ -168,14 +169,8 @@ class Game {
 
   initializeImages() {
     const images = Array.from(document.querySelectorAll(".loader-image"));
-    images.forEach((image, index) => {
-      this.asynImageLoader(image);
-      this.imageLoaded++;
-      if (index === images.length) {
-        this.app.classList.remove("hidden");
-        this.loaderScreen;
-      }
-    });
+    this.imageCount = images.length;
+    images.forEach((image) => this.asynImageLoader(image));
   }
 
   asynImageLoader(img) {
@@ -187,6 +182,11 @@ class Game {
           img.src = URL.createObjectURL(blob);
           img.alt = `image: ${fileName.split(".")[0]}`;
           img.classList.remove("loader-image");
+          this.imageLoaded++;
+          if (this.imageLoaded === this.imageCount) {
+            this.app.classList.remove("hidden");
+            this.loaderScreen.remove();
+          }
         })
         .catch((error) => console.log(error))
     );
