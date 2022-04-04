@@ -126,6 +126,7 @@ class Game {
 
   getDomELements() {
     this.app = document.getElementById("app");
+    this.loaderScreen = document.getElementById("loader-screen");
     this.favicon = document.querySelector("#favicon");
 
     //buttons
@@ -166,9 +167,15 @@ class Game {
   }
 
   initializeImages() {
-    Array.from(document.querySelectorAll(".loader-image")).forEach((image) =>
-      this.asynImageLoader(image)
-    );
+    const images = Array.from(document.querySelectorAll(".loader-image"));
+    images.forEach((image, index) => {
+      this.asynImageLoader(image);
+      this.imageLoaded++;
+      if (index === images.length) {
+        this.app.classList.remove("hidden");
+        this.loaderScreen;
+      }
+    });
   }
 
   asynImageLoader(img) {
