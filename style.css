@@ -134,6 +134,44 @@ body {
   overflow: hidden;
 }
 
+.loader-image {
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+#loader-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white !important;
+  z-index: 100;
+}
+
+#loader-screen img {
+  width: 100px;
+  height: 100px;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 #app {
   font-family: "Rammetto One", cursive;
   width: 50%;
@@ -313,8 +351,8 @@ img {
   transform-origin: center;
 }
 
-.images.hidden {
-  display: none;
+.hidden {
+  display: none !important;
 }
 
 .modal {
