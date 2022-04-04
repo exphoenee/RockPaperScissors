@@ -1,5 +1,7 @@
 class Game {
   constructor() {
+    this.baseURL = window.location.origin;
+
     this.choice = [
       { value: "rock", beats: ["scissors", "lizard"] },
       { value: "paper", beats: ["rock", "spock"] },
@@ -160,6 +162,26 @@ class Game {
     this.playerImages = Array.from(document.querySelectorAll(".images.player"));
     this.computerImages = Array.from(
       document.querySelectorAll(".images.computer")
+    );
+  }
+
+  initializeImages() {
+    Array.from(document.querySelectorAll(".loader-image")).forEach((image) =>
+      this.asynImageLoader(image)
+    );
+  }
+
+  asynImageLoader(img) {
+    const fileName = img.dataset.filename;
+    fetch(`${this.baseURL}/${fileName}`).then((response) =>
+      response
+        .blob()
+        .then((blob) => {
+          img.src = URL.createObjectURL(blob);
+          img.alt = `image: ${fileName.split(".")[0]}`;
+          img.classList.remove("loader-image");
+        })
+        .catch((error) => console.log(error))
     );
   }
 
@@ -506,6 +528,7 @@ class Game {
   }
 
   initialize() {
+    this.initializeImages();
     this.initilizeDarkmode();
     this.initializeStatistics();
     this.initializeButtons();
