@@ -453,6 +453,7 @@ tr:nth-child(odd):hover {
 @media screen and (max-width: 900px) {
   #app {
     width: 90%;
+    box-shadow: none;
   }
   .modal.rules {
     flex-direction: column;
@@ -475,7 +476,13 @@ tr:nth-child(odd):hover {
   .game-area {
     flex-direction: column !important;
   }
+  .vs {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .vs img {
-    margin: 0;
+    margin-top: 0;
   }
 }
