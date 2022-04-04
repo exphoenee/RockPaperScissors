@@ -181,7 +181,6 @@ class Game {
       this.developerMode ? "" : "rpsls/"
     }${fileName}`;
 
-    console.log(url);
     fetch(url).then((response) =>
       response
         .blob()
