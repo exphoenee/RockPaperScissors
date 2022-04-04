@@ -4,10 +4,7 @@ function asynImageLoader(fileName, img) {
   fetch(`${baseURL}${fileName}`).then((response) =>
     response
       .blob()
-      .then((blob) => {
-        console.log(blob);
-        img.src = URL.createObjectURL(blob);
-      })
+      .then((blob) => (img.src = URL.createObjectURL(blob)))
       .catch((error) => console.log(error))
   );
 }
