@@ -283,6 +283,7 @@ class Game {
       this.languageModal,
       this.licensingModal,
       this.statisticsModal,
+      this.settings,
     ];
     changeDark.forEach((elem) => elem.classList.toggle("dark"));
     localStorage.setItem(
