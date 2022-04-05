@@ -140,6 +140,7 @@ class Game {
     this.langButton = document.querySelector(".language.button");
     this.licensingButton = document.querySelector(".licensing.button");
     this.statisticsButton = document.querySelector(".statistics.button");
+    this.settingsButton = document.querySelector(".settings.button");
     this.lightdark = document.querySelector(".lightdark.button");
 
     //modals
