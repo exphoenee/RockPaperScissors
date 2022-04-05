@@ -181,7 +181,7 @@ body {
 }
 
 #settings.out {
-  left: -32%;
+  transform: translate(-80%, -50%);
 }
 
 #settings {
@@ -207,14 +207,18 @@ body {
   display: flex;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
 #app {
   font-family: "Rammetto One", cursive;
   width: 50%;
   padding: 5%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   box-shadow: 2px 5px 10px grey;
   border-radius: 2rem;
   display: flex;
@@ -409,7 +413,7 @@ img {
 .modal.rules {
   display: flex;
   flex-direction: row;
-  width: 80%;
+  width: 45%;
   justify-content: center;
   align-items: center;
 }
@@ -481,6 +485,9 @@ tr:nth-child(odd):hover {
   .image-container img {
     width: 120px !important;
   }
+  #settings {
+    height: 50px;
+  }
 }
 
 @media screen and (max-width: 620px) {
@@ -488,7 +495,7 @@ tr:nth-child(odd):hover {
     width: 64px !important;
   }
   #settings {
-    position: block;
+    position: fixed;
     bottom: inherit;
     left: inherit;
   }
@@ -497,6 +504,7 @@ tr:nth-child(odd):hover {
 @media screen and (max-width: 500px) {
   .game-area {
     flex-direction: column !important;
+    align-items: initial;
   }
   .vs {
     margin: auto;
