@@ -314,6 +314,10 @@ p {
   display: flex;
 }
 
+.image-container img {
+  width: 240px;
+}
+
 img {
   width: 100%;
   -webkit-user-drag: none;
@@ -462,7 +466,7 @@ tr:nth-child(odd):hover {
   background-color: #e8e8e8;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1350px) {
   #app {
     width: 66%;
   }
@@ -471,7 +475,7 @@ tr:nth-child(odd):hover {
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 950px) {
   #app {
     width: 85%;
   }
