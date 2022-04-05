@@ -181,8 +181,17 @@ body {
   }
 }
 
+#settings.out:hover {
+  opacity: 0.6;
+}
+
+#settings {
+  opacity: 1;
+}
+
 #settings.out {
   transform: translate(-80%, -50%);
+  opacity: 0.3;
 }
 
 #settings {
@@ -193,11 +202,12 @@ body {
   flex-direction: row-reverse;
   padding: 1rem;
   border-radius: 0 96px 96px 0;
-  background: #eee;
+  background: #fefefe;
   box-shadow: 2px 5px 10px gray;
   transform: translateY(-50%);
   transition: all 0.3s ease-in-out;
   z-index: 99;
+  opacity: 0.8;
 }
 
 #settings button {
@@ -496,10 +506,15 @@ tr:nth-child(odd):hover {
     left: 50% !important;
     transform: translate(-50%, -100%);
     border-radius: 1.5rem 1.5rem 0 0;
+    opacity: 0.5 !important;
+  }
+  #settings:hover {
+    opacity: 1 !important;
   }
   #settings.out {
     transform: translate(-50%, -100%);
   }
+
   .button.settings {
     display: none !important;
   }
