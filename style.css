@@ -185,7 +185,7 @@ body {
 }
 
 #settings {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 0%;
   display: flex;
@@ -486,6 +486,11 @@ tr:nth-child(odd):hover {
 @media screen and (max-width: 620px) {
   .image-container img {
     width: 64px !important;
+  }
+  #settings {
+    position: block;
+    bottom: inherit;
+    left: inherit;
   }
 }
 
