@@ -187,7 +187,13 @@ body {
   border-radius: 0 50% 50% 0;
   background: #eee;
   box-shadow: 2px 5px 10px gray;
-  transform: translateY(-50%) transform;
+}
+
+.menu {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
 }
 
 #app {
