@@ -180,19 +180,30 @@ body {
   }
 }
 
+#settings.out {
+  left: -32%;
+}
+
 #settings {
   position: absolute;
   top: 50%;
+  left: 0%;
+  display: flex;
+  flex-direction: row-reverse;
   padding: 1rem;
-  border-radius: 0 50% 50% 0;
+  border-radius: 0 96px 96px 0;
   background: #eee;
   box-shadow: 2px 5px 10px gray;
+  transform: translateY(-50%);
+  transition: all 0.3s ease-in-out;
+  z-index: 99;
 }
 
-.menu {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+#settings button {
+  display: block;
+}
+
+#menu {
   display: flex;
 }
 
