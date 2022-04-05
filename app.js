@@ -128,6 +128,8 @@ class Game {
 
   getDomELements() {
     this.app = document.getElementById("app");
+    this.menu = document.getElementById("menu");
+    this.settings = document.getElementById("settings");
     this.loaderScreen = document.getElementById("loader-screen");
     this.favicon = document.querySelector("#favicon");
 
@@ -233,13 +235,6 @@ class Game {
     this.userWins.innerHTML = results.player;
   }
 
-  initButton(button, cb) {
-    button.addEventListener("click", (e) => {
-      e.preventDefault();
-      cb();
-    });
-  }
-
   nextThrew() {
     this.userChoiceIndex++;
     if (this.userChoiceIndex > this.choice.length - 1) {
@@ -296,11 +291,23 @@ class Game {
     );
   }
 
+  initButton(button, cb) {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      cb();
+    });
+  }
+
+  showMenu() {
+    this.settings.classList.toggle("out");
+  }
+
   initializeButtons() {
     const buttonActions = [
       { button: this.nextButton, action: this.nextThrew.bind(this) },
       { button: this.prevButton, action: this.prevThrew.bind(this) },
       { button: this.startButton, action: this.startGame.bind(this) },
+      { button: this.settingsButton, action: this.showMenu.bind(this) },
       { button: this.lightdark, action: this.lightChange.bind(this) },
     ];
     buttonActions.forEach(({ button, action }) =>
