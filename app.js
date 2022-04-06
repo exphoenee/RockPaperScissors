@@ -454,18 +454,37 @@ class Game {
             <tr>
               <td class="player-cell">${this.getTranslation(threw)}</td>
               <td class="player-cell" style="text-align:center">${
-                this.statistics["player"][threw]
+                this.statistics["player"][threw] /
+                  (+this.statistics["player"][threw] +
+                    +this.statistics["computer"][threw]) +
+                "%"
               }</td>
               <td class="computer-cell" style="text-align:center">${
-                this.statistics["computer"][threw]
+                this.statistics["computer"][threw] /
+                  (+this.statistics["player"][threw] +
+                    +this.statistics["computer"][threw]) +
+                "%"
               }</td>
               <td class="summary-cell" style="text-align:center">${
                 this.statistics["player"][threw] +
-                this.statistics["computer"][threw]
+                this.statistics["computer"][threw] /
+                  (+this.statistics["player"][threw] +
+                    +this.statistics["computer"][threw]) +
+                "%"
               }</td>
             </tr>`;
         })
         .join("")}
+        <tfoot>
+          <tr>${[
+            this.getTranslation("summary"),
+            this.userWins.innerHTML,
+            this.computerWins.innerHTML,
+            +this.computerWins.innerHTML + +this.userWins.innerHTML,
+          ]
+            .map((footer) => `<th>${footer}</th>`)
+            .join("")}</tr>
+        </tfoot>
       </tbody></table>`;
 
     this.statisticsModal.innerHTML = table;
