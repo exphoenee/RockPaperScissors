@@ -274,10 +274,6 @@ class Game {
   }
 
   lightChange() {
-    Array.from(this.lightdark.children).forEach((child) => {
-      child.classList.toggle("on");
-      child.classList.toggle("off");
-    });
     const changeDark = [
       this.app.parentElement,
       this.app,
@@ -293,6 +289,23 @@ class Game {
       "darkmode",
       this.app.parentElement.classList.contains("dark")
     );
+
+    const switchIcon = {
+      dark: {
+        sun: "off",
+        moon: "on",
+      },
+    };
+
+    this.app.classList.contains("dark");
+
+    if (this.app.classList.contains("dark")) {
+      child.classList.add(child.classList.contains("sun") ? "off" : "on");
+      child.classList.remove(child.classList.contains("sun") ? "on" : "off");
+    } else {
+      child.classList.add(child.classList.contains("moon") ? "off" : "on");
+      child.classList.remove(child.classList.contains("moon") ? "on" : "off");
+    }
   }
 
   initButton(button, cb) {
