@@ -444,6 +444,8 @@ class Game {
       "summary",
     ];
 
+    const allGame = +this.computerWins.innerHTML + +this.userWins.innerHTML;
+
     const table = `<table><thead>
       <tr>${header
         .map((col, index) => `<th>${this.getTranslation(col)}</th>`)
@@ -455,23 +457,22 @@ class Game {
             <tr>
               <td class="player-cell">${this.getTranslation(threw)}</td>
               <td class="player-cell" style="text-align:center">${
-                this.statistics["player"][threw] /
-                  (+this.statistics["player"][threw] +
-                    +this.statistics["computer"][threw]) +
-                "%"
+                ((+this.statistics["player"][threw] / allGame) * 100).toFixed(
+                  1
+                ) + "%"
               }</td>
               <td class="computer-cell" style="text-align:center">${
-                this.statistics["computer"][threw] /
-                  (+this.statistics["player"][threw] +
-                    +this.statistics["computer"][threw]) +
-                "%"
+                ((+this.statistics["computer"][threw] / allGame) * 100).toFixed(
+                  1
+                ) + "%"
               }</td>
               <td class="summary-cell" style="text-align:center">${
-                this.statistics["player"][threw] +
-                this.statistics["computer"][threw] /
-                  (+this.statistics["player"][threw] +
-                    +this.statistics["computer"][threw]) +
-                "%"
+                (
+                  ((+this.statistics["player"][threw] +
+                    +this.statistics["computer"][threw]) /
+                    allGame) *
+                  100
+                ).toFixed(1) + "%"
               }</td>
             </tr>`;
         })
@@ -479,9 +480,9 @@ class Game {
         <tfoot>
           <tr>${[
             this.getTranslation("summary"),
-            this.userWins.innerHTML,
-            this.computerWins.innerHTML,
-            +this.computerWins.innerHTML + +this.userWins.innerHTML,
+            ((+this.userWins.innerHTML / allGame) * 100).toFixed(1) + "%",
+            ((+this.computerWins.innerHTML / allGame) * 100).toFixed(1) + "%",
+            "100%",
           ]
             .map((footer) => `<th>${footer}</th>`)
             .join("")}</tr>
