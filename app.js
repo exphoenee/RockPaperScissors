@@ -43,6 +43,7 @@ class Game {
         resultComputerWon: "Computer wins!",
         computerName: "Computer",
         playerName: "Player",
+        summary: "Summary",
         threws: "Threws",
         wins: "wins",
         error: "Error! You must select a valid option!",
@@ -74,6 +75,7 @@ class Game {
         resultComputerWon: "Der Computer hat gewonnen!",
         computerName: "Komputer",
         playerName: "Spieler",
+        summary: "Insgesammt",
         threws: "geworfen",
         wins: "Gewinnt",
         error: "Fehler! Du musst eine gültige Option auswählen!",
@@ -105,6 +107,7 @@ class Game {
         resultComputerWon: "A CPU nyert!",
         computerName: "Számítógép",
         playerName: "Játékos",
+        summary: "Összesen",
         threws: "Mutatott",
         wins: "Nyert",
         error: "Hiba! Érvénytelen választás!",
@@ -434,7 +437,11 @@ class Game {
   }
 
   createStatistics() {
-    const header = ["wins", ...this.playerNames.map((pn) => pn + "Name")];
+    const header = [
+      "wins",
+      ...this.playerNames.map((pn) => pn + "Name"),
+      "summary",
+    ];
 
     const table = `<table><thead>
       <tr>${header
@@ -450,6 +457,10 @@ class Game {
                 this.statistics["player"][threw]
               }</td>
               <td class="computer-cell" style="text-align:center">${
+                this.statistics["computer"][threw]
+              }</td>
+              <td class="summary-cell" style="text-align:center">${
+                this.statistics["player"][threw] +
                 this.statistics["computer"][threw]
               }</td>
             </tr>`;
