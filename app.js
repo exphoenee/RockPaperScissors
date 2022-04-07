@@ -165,7 +165,10 @@ class Game {
 
     //statistics table
     this.statisticsTable = document.querySelector(".table-container");
-    this.statisticsInput = document.querySelector(".statistics-input");
+    this.statisticsInput = document.querySelector("#statistics-input");
+
+    //result modal content
+    this.resultContainer = document.querySelector(".result-container");
 
     //language changers
     this.langChange = Array.from(document.querySelectorAll(".language-button"));
@@ -295,6 +298,7 @@ class Game {
       this.licensingModal,
       this.statisticsModal,
       this.settings,
+      this.statisticsInput,
     ];
     changeDark.forEach((elem) => elem.classList.toggle("dark"));
     localStorage.setItem(
@@ -341,15 +345,15 @@ class Game {
   initializeModals() {
     const modalMaps = [
       {
-        activator: [this.rulesButton, this.rulesModal],
+        activator: [this.rulesButton, this.rulesClose],
         modal: this.rulesModal,
       },
       {
-        activator: [this.langButton, this.languageModal],
+        activator: [this.langButton, this.languageClose],
         modal: this.languageModal,
       },
       {
-        activator: [this.licensingButton, this.licensingModal],
+        activator: [this.licensingButton, this.licensingClose],
         modal: this.licensingModal,
       },
       {
@@ -447,12 +451,11 @@ class Game {
     this.createStatistics();
   }
 
-  statisticsMode() {
-    this.statisticsInput.addEventListener("change", () => {
+  initStatisticsMode() {
+    this.statisticsInput.addEventListener("change", (e) => {
       e.preventDefault();
       this.statisticMode = this.statisticsInput.value;
       this.createStatistics();
-      consoele.log(this.statisticMode);
     });
   }
 
@@ -509,13 +512,15 @@ class Game {
           <tr>${[
             this.getTranslation("summary"),
             this.statisticMode === "values"
-              ? ((+this.userWins.innerHTML / allGame) * 100).toFixed(1) + "%"
-              : +this.userWins.innerHTML,
+              ? +this.userWins.innerHTML
+              : ((+this.userWins.innerHTML / allGame) * 100).toFixed(1) + "%",
             this.statisticMode === "values"
-              ? ((+this.computerWins.innerHTML / allGame) * 100).toFixed(1) +
-                "%"
-              : +this.computerWins.innerHTML,
-            "100%",
+              ? +this.computerWins.innerHTML
+              : ((+this.computerWins.innerHTML / allGame) * 100).toFixed(1) +
+                "%",
+            this.statisticMode === "values"
+              ? +this.computerWins.innerHTML + +this.userWins.innerHTML
+              : "100%",
           ]
             .map((footer) => `<th>${footer}</th>`)
             .join("")}</tr>
@@ -556,7 +561,7 @@ class Game {
   }
 
   showResult() {
-    this.resultModal.innerHTML = `
+    this.resultContainer.innerHTML = `
     <h2>${this.result}</h2>
     <p>${this.getTranslation("youThrew")} ${this.getTranslation(
       this.userChoice.value + "T"
@@ -634,6 +639,7 @@ class Game {
       this.setComputerChoiceImage();
       this.updateLang();
       this.initTitleChange();
+      this.initStatisticsMode();
     };
   }
 }
