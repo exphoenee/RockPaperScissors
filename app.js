@@ -155,8 +155,12 @@ class Game {
     this.statisticsModal = document.querySelector(".statistics.modal");
     this.licensingModal = document.querySelector(".licensing.modal");
 
+    //modal close buttons
+    this.statisticsClose = document.querySelector(".statistics.closeButton");
+
     //table
-    this.statisticsTable = document.querySelector(".table-container.modal");
+    this.statisticsTable = document.querySelector(".table-container");
+    this.statisticsInput = document.querySelector(".statistics-input");
 
     //language changers
     this.langChange = Array.from(document.querySelectorAll(".language-button"));
@@ -438,6 +442,12 @@ class Game {
     }
     this.updateStatistics();
     this.createStatistics();
+  }
+
+  statisticsMode() {
+    this.statisticsInput.addEventListener("change", () => {
+      e.preventDefault();
+    });
   }
 
   createStatistics() {
