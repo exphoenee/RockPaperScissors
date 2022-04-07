@@ -59,6 +59,7 @@ li,
 fieldset,
 form,
 label,
+input,
 legend,
 table,
 caption,
@@ -219,6 +220,7 @@ body {
 }
 
 body {
+  font-family: "Rammetto One", cursive;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -227,7 +229,6 @@ body {
 }
 
 #app {
-  font-family: "Rammetto One", cursive;
   width: 50%;
   padding: 5%;
   box-shadow: 2px 5px 10px grey;
@@ -241,6 +242,18 @@ body {
 
 body {
   background: white;
+}
+
+#statistics-input {
+  font-family: "Rammetto One", cursive;
+  transition: 0.3s all ease-in-out;
+  padding: 0.3rem;
+  text-align: center;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  outline: none;
+  border: rgba(16, 16, 16, 0.8);
+  box-shadow: 1px 2px 5px gray;
 }
 
 .dark table,
