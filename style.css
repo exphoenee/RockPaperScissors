@@ -250,6 +250,19 @@ body {
   box-shadow: 2px 5px 10px black !important;
 }
 
+.modal {
+  position: relative;
+}
+
+.modal .closeButton {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  outline: none;
+  background: none;
+  border: none;
+}
+
 .modal.rules.dark img {
   -webkit-filter: invert(1);
 
