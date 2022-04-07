@@ -155,6 +155,9 @@ class Game {
     this.statisticsModal = document.querySelector(".statistics.modal");
     this.licensingModal = document.querySelector(".licensing.modal");
 
+    //table
+    this.statisticsTable = document.querySelector(".table-container.modal");
+
     //language changers
     this.langChange = Array.from(document.querySelectorAll(".language-button"));
 
@@ -489,7 +492,7 @@ class Game {
         </tfoot>
       </tbody></table>`;
 
-    this.statisticsModal.innerHTML = table;
+    this.statisticsTable.innerHTML = table;
   }
 
   getTranslation(string) {
