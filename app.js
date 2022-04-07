@@ -157,8 +157,12 @@ class Game {
 
     //modal close buttons
     this.statisticsClose = document.querySelector(".statistics.closeButton");
+    this.rulesClose = document.querySelector(".rules.closeButton");
+    this.languageClose = document.querySelector(".language.closeButton");
+    this.resultClose = document.querySelector(".result.closeButton");
+    this.licensingClose = document.querySelector(".licensing.closeButton");
 
-    //table
+    //statistics table
     this.statisticsTable = document.querySelector(".table-container");
     this.statisticsInput = document.querySelector(".statistics-input");
 
@@ -303,17 +307,16 @@ class Game {
     });
   }
 
+  showMenu() {
+    this.settings.classList.toggle("out");
+  }
+
   initButton(button, cb) {
     button.addEventListener("click", (e) => {
       e.preventDefault();
       cb();
     });
   }
-
-  showMenu() {
-    this.settings.classList.toggle("out");
-  }
-
   initializeButtons() {
     const buttonActions = [
       { button: this.nextButton, action: this.nextThrew.bind(this) },
@@ -327,6 +330,13 @@ class Game {
     );
   }
 
+  initModal(activator, modal) {
+    this.makeArray(activator).forEach((elem) => {
+      elem.addEventListener("click", () => {
+        modal.classList.toggle("show");
+      });
+    });
+  }
   initializeModals() {
     const modalMaps = [
       {
@@ -342,7 +352,7 @@ class Game {
         modal: this.licensingModal,
       },
       {
-        activator: [this.statisticsButton, this.statisticsModal],
+        activator: [this.statisticsButton, this.statisticsClose],
         modal: this.statisticsModal,
       },
       {
@@ -369,14 +379,6 @@ class Game {
     } else {
       return [arr];
     }
-  }
-
-  initModal(activator, modal) {
-    this.makeArray(activator).forEach((elem) => {
-      elem.addEventListener("click", () => {
-        modal.classList.toggle("show");
-      });
-    });
   }
 
   setUserChoiceImage() {
