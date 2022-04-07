@@ -258,10 +258,16 @@ body {
   position: absolute;
   right: 1rem;
   top: 1rem;
+  width: 32px;
+  height: 32px;
   outline: none;
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.modal .closeButton img {
+  width: 100%;
 }
 
 .modal.rules.dark img {
