@@ -15,6 +15,7 @@ class Game {
     this.darkmode = localStorage.getItem("darkmode") || "ligth";
     this.playerNames = ["player", "computer"];
     this.imageLoaded = 0;
+    this.statisticMode = "values";
 
     this.dictionary = {
       en: {
@@ -449,6 +450,9 @@ class Game {
   statisticsMode() {
     this.statisticsInput.addEventListener("change", () => {
       e.preventDefault();
+      this.statisticMode = this.statisticsInput.value;
+      this.createStatistics();
+      consoele.log(this.statisticMode);
     });
   }
 
@@ -472,22 +476,31 @@ class Game {
             <tr>
               <td class="player-cell">${this.getTranslation(threw)}</td>
               <td class="player-cell" style="text-align:center">${
-                ((+this.statistics["player"][threw] / allGame) * 100).toFixed(
-                  1
-                ) + "%"
+                this.statisticMode === "values"
+                  ? +this.statistics["player"][threw]
+                  : (
+                      (+this.statistics["player"][threw] / allGame) *
+                      100
+                    ).toFixed(1) + "%"
               }</td>
               <td class="computer-cell" style="text-align:center">${
-                ((+this.statistics["computer"][threw] / allGame) * 100).toFixed(
-                  1
-                ) + "%"
+                this.statisticMode === "values"
+                  ? +this.statistics["computer"][threw]
+                  : (
+                      (+this.statistics["computer"][threw] / allGame) *
+                      100
+                    ).toFixed(1) + "%"
               }</td>
               <td class="summary-cell" style="text-align:center">${
-                (
-                  ((+this.statistics["player"][threw] +
-                    +this.statistics["computer"][threw]) /
-                    allGame) *
-                  100
-                ).toFixed(1) + "%"
+                this.statisticMode === "values"
+                  ? +this.statistics["computer"][threw] +
+                    +this.statistics["computer"][threw]
+                  : (
+                      ((+this.statistics["player"][threw] +
+                        +this.statistics["computer"][threw]) /
+                        allGame) *
+                      100
+                    ).toFixed(1) + "%"
               }</td>
             </tr>`;
         })
@@ -495,8 +508,13 @@ class Game {
         <tfoot>
           <tr>${[
             this.getTranslation("summary"),
-            ((+this.userWins.innerHTML / allGame) * 100).toFixed(1) + "%",
-            ((+this.computerWins.innerHTML / allGame) * 100).toFixed(1) + "%",
+            this.statisticMode === "values"
+              ? ((+this.userWins.innerHTML / allGame) * 100).toFixed(1) + "%"
+              : +this.userWins.innerHTML,
+            this.statisticMode === "values"
+              ? ((+this.computerWins.innerHTML / allGame) * 100).toFixed(1) +
+                "%"
+              : +this.computerWins.innerHTML,
             "100%",
           ]
             .map((footer) => `<th>${footer}</th>`)
