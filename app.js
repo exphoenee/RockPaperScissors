@@ -166,6 +166,7 @@ class Game {
     this.languageClose = document.querySelector(".language.closeButton");
     this.resultClose = document.querySelector(".result.closeButton");
     this.licensingClose = document.querySelector(".licensing.closeButton");
+    this.resultClose = document.querySelector(".result.closeButton");
 
     //statistics table
     this.statisticsTable = document.querySelector(".table-container");
