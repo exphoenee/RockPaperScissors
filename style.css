@@ -294,6 +294,18 @@ body {
 }
 
 .modal .closeButton img {
+  -webkit-filter: grayscale(90%);
+  filter: grayscale(90%);
+  -webkit-filter: hue-rotate(150deg);
+  filter: hue-rotate(150deg);
+  width: 100%;
+}
+
+.modal.dark .closeButton img {
+  -webkit-filter: grayscale(90%);
+  filter: grayscale(90%);
+  -webkit-filter: hue-rotate(90deg);
+  filter: hue-rotate(210deg);
   width: 100%;
 }
 
