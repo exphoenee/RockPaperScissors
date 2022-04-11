@@ -345,10 +345,13 @@ class Game {
   }
 
   initModal(activator, modal) {
+    const modalShowed = modal.classList.contains("show");
     this.makeArray(activator).forEach((elem) => {
       elem.addEventListener("click", () => {
         this.closeAllModals();
-        modal.classList.add("show");
+        modalShowed
+          ? modal.classList.remove("show")
+          : modal.classList.add("show");
       });
     });
   }
