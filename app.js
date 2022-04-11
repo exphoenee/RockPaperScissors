@@ -348,7 +348,7 @@ class Game {
     const modalShowed = modal.classList.contains("show");
     this.makeArray(activator).forEach((elem) => {
       elem.addEventListener("click", () => {
-        this.closeAllModals();
+        //this.closeAllModals();
         modalShowed
           ? modal.classList.remove("show")
           : modal.classList.add("show");
@@ -357,13 +357,17 @@ class Game {
   }
 
   closeAllModals() {
-    this.allModals.forEach((modal) => modal.classList.remove("show"));
+    this.allModals.forEach((modal) => {
+      console.log("org: ", modal);
+      modal.classList.remove("show");
+      console.log("removed: ", modal);
+    });
   }
 
   initCloseButtons() {
-    this.allCloseButtons.forEach((button) => {
-      button.addEventListener("click", () => this.closeAllModals());
-    });
+    this.allCloseButtons.forEach((button) =>
+      button.addEventListener("click", () => this.closeAllModals())
+    );
   }
 
   initializeModals() {
