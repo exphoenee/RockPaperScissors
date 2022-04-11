@@ -158,6 +158,9 @@ class Game {
     this.allModals = Array.from(document.querySelectorAll(".modal"));
 
     //modal close buttons
+    this.allCloseButtons = Array.from(
+      document.querySelectorAll(".closeButton")
+    );
     this.statisticsClose = document.querySelector(".statistics.closeButton");
     this.rulesClose = document.querySelector(".rules.closeButton");
     this.languageClose = document.querySelector(".language.closeButton");
@@ -339,37 +342,47 @@ class Game {
   initModal(activator, modal) {
     this.makeArray(activator).forEach((elem) => {
       elem.addEventListener("click", () => {
-        this.allModals.forEach((modal) => modal.classList.remove("show"));
-        console.log(modal.classList.contains("show"));
-        modal.classList.contains("close")
-          ? modal.classList.remove("show")
-          : modal.classList.add("show");
+        this.closeAllModals();
+        modal.classList.add("show");
       });
     });
   }
+
+  closeAllModals() {
+    this.allModals.forEach((modal) => modal.classList.remove("show"));
+  }
+
+  initCloseButtons() {
+    this.allCloseButtons.forEach((elem) => {
+      elem.addEventListener("click", () => this.closeAllModals());
+    });
+  }
+
   initializeModals() {
     const modalMaps = [
       {
-        activator: [this.rulesButton, this.rulesClose],
+        activator: [this.rulesButton],
         modal: this.rulesModal,
       },
       {
-        activator: [this.langButton, this.languageClose],
+        activator: [this.langButton],
         modal: this.languageModal,
       },
       {
-        activator: [this.licensingButton, this.licensingClose],
+        activator: [this.licensingButton],
         modal: this.licensingModal,
       },
       {
-        activator: [this.statisticsButton, this.statisticsClose],
+        activator: [this.statisticsButton],
         modal: this.statisticsModal,
       },
       {
-        activator: this.resultModal,
+        activator: [this.resultModal],
         modal: this.resultModal,
       },
     ];
+
+    this.initCloseButtons();
 
     modalMaps.forEach(({ activator, modal }) => {
       this.initModal(activator, modal);
