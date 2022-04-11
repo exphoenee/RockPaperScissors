@@ -604,6 +604,7 @@ class Game {
     document.documentElement.setAttribute("lang", this.language);
     localStorage.setItem("language", this.language);
   }
+
   initializeStatistics() {
     const oldStat = localStorage.getItem("statistics");
     oldStat
