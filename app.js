@@ -173,6 +173,7 @@ class Game {
 
     //result modal content
     this.resultContainer = document.querySelector(".result-container");
+    this.resultCounter = document.querySelector(".counter");
 
     //language changers
     this.langChange = Array.from(document.querySelectorAll(".language-button"));
@@ -276,6 +277,7 @@ class Game {
   }
 
   startGame() {
+    this.startButton.style.display = "none";
     for (let i = 0; i < this.computerRollLength; i++) {
       setTimeout(() => {
         this.computerChoiceIndex = Math.floor(
@@ -326,6 +328,7 @@ class Game {
       cb();
     });
   }
+
   initializeButtons() {
     const buttonActions = [
       { button: this.nextButton, action: this.nextThrew.bind(this) },
@@ -334,6 +337,7 @@ class Game {
       { button: this.settingsButton, action: this.showMenu.bind(this) },
       { button: this.lightdark, action: this.lightChange.bind(this) },
     ];
+
     buttonActions.forEach(({ button, action }) =>
       this.initButton(button, action)
     );
@@ -353,8 +357,8 @@ class Game {
   }
 
   initCloseButtons() {
-    this.allCloseButtons.forEach((elem) => {
-      elem.addEventListener("click", () => this.closeAllModals());
+    this.allCloseButtons.forEach((button) => {
+      button.addEventListener("click", () => this.closeAllModals());
     });
   }
 
@@ -587,17 +591,15 @@ class Game {
     <p>${this.getTranslation("CPUThrew")} ${this.getTranslation(
       this.computerChoice.value + "T"
     )}</p>`;
-    const counter = document.createElement("p");
-    this.resultModal.appendChild(counter);
-    counter.classList.add("counter");
     this.resultModal.classList.add("show");
     for (let i = this.popupTimeout; i >= 0; i--) {
       setTimeout(() => {
         if (i === 0) {
-          counter.innerHTML = this.getTranslation("popupClosing");
+          this.resultCounter.innerHTML = this.getTranslation("popupClosing");
           this.resultModal.classList.remove("show");
+          this.startButton.style.display = "initial";
         } else {
-          counter.innerHTML = `${this.getTranslation(
+          this.resultCounter.innerHTML = `${this.getTranslation(
             "popupClosingIn"
           )} <span style="width:1.2rem;display:inline-block;">${i}</span> ${this.getTranslation(
             "popupTimeout"
