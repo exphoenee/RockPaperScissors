@@ -182,17 +182,31 @@ body {
   }
 }
 
+#settings.out {
+  transform: translate(-95%, -50%);
+  opacity: 0.2;
+}
+
+#settings.out .button.settings {
+  opacity: 0.2;
+}
+
 #settings.out:hover {
+  transform: translate(-80%, -50%);
   opacity: 0.6;
+}
+
+#settings.out:hover .button.settings {
+  opacity: 1;
+}
+
+#settings.out:hover .button.settings:hover {
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 #settings {
   opacity: 1;
-}
-
-#settings.out {
-  transform: translate(-80%, -50%);
-  opacity: 0.3;
 }
 
 #settings {
@@ -522,15 +536,19 @@ tr:nth-child(odd):hover {
   #app {
     width: 85%;
   }
+
   .modal.rules {
     flex-direction: column;
   }
+
   .button {
     width: 50px;
   }
+
   .image-container img {
     width: 120px !important;
   }
+
   #settings {
     height: 50px;
     position: absolute;
