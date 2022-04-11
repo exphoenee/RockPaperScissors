@@ -155,6 +155,7 @@ class Game {
     this.languageModal = document.querySelector(".language.modal");
     this.statisticsModal = document.querySelector(".statistics.modal");
     this.licensingModal = document.querySelector(".licensing.modal");
+    this.allModals = Array.from(document.querySelectorAll(".modal"));
 
     //modal close buttons
     this.statisticsClose = document.querySelector(".statistics.closeButton");
@@ -338,7 +339,11 @@ class Game {
   initModal(activator, modal) {
     this.makeArray(activator).forEach((elem) => {
       elem.addEventListener("click", () => {
-        modal.classList.toggle("show");
+        this.allModals.forEach((modal) => modal.classList.remove("show"));
+        console.log(modal.classList.contains("show"));
+        modal.classList.contains("close")
+          ? modal.classList.remove("show")
+          : modal.classList.add("show");
       });
     });
   }
