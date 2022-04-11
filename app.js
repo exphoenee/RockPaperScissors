@@ -345,9 +345,9 @@ class Game {
   }
 
   initModal(activator, modal) {
-    const modalShowed = modal.classList.contains("show");
     this.makeArray(activator).forEach((elem) => {
       elem.addEventListener("click", () => {
+        const modalShowed = modal.classList.contains("show");
         this.closeAllModals();
         modalShowed
           ? modal.classList.remove("show")
@@ -357,11 +357,7 @@ class Game {
   }
 
   closeAllModals() {
-    this.allModals.forEach((modal) => {
-      console.log("org: ", modal);
-      modal.classList.remove("show");
-      console.log("removed: ", modal);
-    });
+    this.allModals.forEach((modal) => modal.classList.remove("show"));
   }
 
   initCloseButtons() {
