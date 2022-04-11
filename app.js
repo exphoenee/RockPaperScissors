@@ -16,6 +16,7 @@ class Game {
     this.playerNames = ["player", "computer"];
     this.imageLoaded = 0;
     this.statisticMode = "values";
+    this.gameInProgress = false;
 
     this.dictionary = {
       en: {
@@ -278,20 +279,29 @@ class Game {
   }
 
   startGame() {
-    this.startButton.style.display = "none";
-    for (let i = 0; i < this.computerRollLength; i++) {
-      setTimeout(() => {
-        this.computerChoiceIndex = Math.floor(
-          Math.random() * this.choice.length
-        );
-        this.computerChoice = this.choice[this.computerChoiceIndex];
-        this.setComputerChoiceImage();
-        if (i === 0) {
-          this.determineWinner();
-          this.initializeStatistics();
-          this.showResult();
-        }
-      }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
+    if (
+      this.allModals.reduce(
+        (acc, curr) => curr.classList.contains("show") + acc,
+        0
+      ) === 0 &&
+      this.gameInProgress === false
+    ) {
+      this.gameInProgress = true;
+      for (let i = 0; i < this.computerRollLength; i++) {
+        setTimeout(() => {
+          this.computerChoiceIndex = Math.floor(
+            Math.random() * this.choice.length
+          );
+          this.computerChoice = this.choice[this.computerChoiceIndex];
+          this.setComputerChoiceImage();
+          if (i === 0) {
+            this.gameInProgress = false;
+            this.determineWinner();
+            this.initializeStatistics();
+            this.showResult();
+          }
+        }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
+      }
     }
   }
 
@@ -383,10 +393,6 @@ class Game {
       {
         activator: [this.statisticsButton],
         modal: this.statisticsModal,
-      },
-      {
-        activator: [this.resultModal],
-        modal: this.resultModal,
       },
     ];
 
@@ -601,7 +607,6 @@ class Game {
         if (i === 0) {
           this.resultCounter.innerHTML = this.getTranslation("popupClosing");
           this.resultModal.classList.remove("show");
-          this.startButton.style.display = "initial";
         } else {
           this.resultCounter.innerHTML = `${this.getTranslation(
             "popupClosingIn"
