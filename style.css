@@ -283,9 +283,8 @@ body {
   width: 100%;
 }
 
-.modal.rules.dark img {
+.modal.rules.dark .rules-image img {
   -webkit-filter: invert(1);
-
   filter: invert(1);
 }
 
