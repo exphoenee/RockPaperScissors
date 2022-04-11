@@ -348,7 +348,7 @@ class Game {
     const modalShowed = modal.classList.contains("show");
     this.makeArray(activator).forEach((elem) => {
       elem.addEventListener("click", () => {
-        //this.closeAllModals();
+        this.closeAllModals();
         modalShowed
           ? modal.classList.remove("show")
           : modal.classList.add("show");
