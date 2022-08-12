@@ -1,7 +1,6 @@
 class Game {
   constructor() {
     this.baseURL = window.location.origin;
-    console.log(this.baseURL);
     this.developerMode = "http://127.0.0.1:5501" === this.baseURL;
 
     this.choice = [
@@ -211,28 +210,25 @@ class Game {
     }${fileName}`;
 
     fetch(url).then((response) =>
-      response
-        .blob()
-        .then((blob) => {
-          img.src = URL.createObjectURL(blob);
-          img.alt = `image: ${fileName.split(".")[0]}`;
-          img.classList.remove("loader-image");
-          const loaded = img.addEventListener(
-            "load",
-            () => {
-              this.imageLoaded++;
-              if (this.imageLoaded === this.imageCount) {
-                this.app.classList.remove("off");
-                this.loaderScreen.classList.add("off");
-                this.loaderScreen.addEventListener("transitionend", () =>
-                  this.loaderScreen.remove()
-                );
-              }
-            },
-            { once: true }
-          );
-        })
-        .catch((error) => console.log(error))
+      response.blob().then((blob) => {
+        img.src = URL.createObjectURL(blob);
+        img.alt = `image: ${fileName.split(".")[0]}`;
+        img.classList.remove("loader-image");
+        const loaded = img.addEventListener(
+          "load",
+          () => {
+            this.imageLoaded++;
+            if (this.imageLoaded === this.imageCount) {
+              this.app.classList.remove("off");
+              this.loaderScreen.classList.add("off");
+              this.loaderScreen.addEventListener("transitionend", () =>
+                this.loaderScreen.remove()
+              );
+            }
+          },
+          { once: true }
+        );
+      })
     );
   }
 
