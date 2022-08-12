@@ -1,7 +1,8 @@
 class Game {
   constructor() {
     this.baseURL = window.location.origin;
-    this.developerMode = "http://127.0.0.1:5500" === this.baseURL;
+    console.log(this.baseURL);
+    this.developerMode = "http://127.0.0.1:5501" === this.baseURL;
 
     this.choice = [
       { value: "rock", beats: ["scissors", "lizard"] },
@@ -206,7 +207,7 @@ class Game {
     const fileName = img.dataset.filename;
 
     const url = `${this.baseURL}/${
-      this.developerMode ? "" : "rpsls/"
+      this.developerMode ? "" : "RockPaperScissors/"
     }${fileName}`;
 
     fetch(url).then((response) =>
