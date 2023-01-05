@@ -1,7 +1,9 @@
 class Game {
   constructor() {
     this.baseURL = window.location.origin;
-    this.developerMode = "http://127.0.0.1:5501" === this.baseURL;
+    this.developerMode = this.baseURL.indexOf("localhost") > -1 || this.baseURL.indexOf("127.0.0.1") > -1 ;
+
+    console.log("Developer mode: " + this.developerMode);
 
     this.choice = [
       { value: "rock", beats: ["scissors", "lizard"] },
