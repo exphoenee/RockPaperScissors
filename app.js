@@ -63,7 +63,6 @@ class Game {
         scissorsT: "Schere",
         lizardT: "Echse",
         spockT: "Spock",
-        gameRules: "Spielregeln",
         rulesDesc:
           'Benutze die Pfeile, um deinen Wurf einzustellen, <br /> dann klicke auf "Häkchen", um das Spiel zu starten!',
         beats: "schlägt",
