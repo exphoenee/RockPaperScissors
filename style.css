@@ -435,6 +435,12 @@ img {
   margin: 0 0.5rem;
 }
 
+.button.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .button img {
   position: absolute;
   width: 100%;

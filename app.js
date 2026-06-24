@@ -14,7 +14,7 @@ class Game {
     ];
 
     this.language = localStorage.getItem("language") || "hu";
-    this.darkmode = localStorage.getItem("darkmode") || "ligth";
+    this.darkmode = localStorage.getItem("darkmode") || "light";
     this.playerNames = ["player", "computer"];
     this.imageLoaded = 0;
     this.statisticMode = "values";
@@ -23,13 +23,14 @@ class Game {
     this.dictionary = {
       en: {
         rock: "rock",
+        rockT: "rock",
         paper: "paper",
-        scissors: "scissors",
-        lizard: "lizard",
-        spock: "Spock",
         paperT: "paper",
+        scissors: "scissors",
         scissorsT: "scissors",
+        lizard: "lizard",
         lizardT: "lizard",
+        spock: "Spock",
         spockT: "Spock",
         gameRules: "Game rules",
         rulesDesc:
@@ -54,14 +55,14 @@ class Game {
       },
       de: {
         rock: "Stein",
+        rockT: "Stein",
         paper: "Papier",
-        scissors: "Schere",
-        lizard: "Echse",
-        spock: "Spock",
-        gameRules: "Spielregeln",
         paperT: "Papier",
+        scissors: "Schere",
         scissorsT: "Schere",
+        lizard: "Echse",
         lizardT: "Echse",
+        spock: "Spock",
         spockT: "Spock",
         gameRules: "Spielregeln",
         rulesDesc:
@@ -169,7 +170,6 @@ class Game {
     this.languageClose = document.querySelector(".language.closeButton");
     this.resultClose = document.querySelector(".result.closeButton");
     this.licensingClose = document.querySelector(".licensing.closeButton");
-    this.resultClose = document.querySelector(".result.closeButton");
 
     //statistics table
     this.statisticsTable = document.querySelector(".table-container");
@@ -211,27 +211,40 @@ class Game {
       this.developerMode ? "" : "RockPaperScissors/"
     }${fileName}`;
 
-    fetch(url).then((response) =>
-      response.blob().then((blob) => {
-        img.src = URL.createObjectURL(blob);
-        img.alt = `image: ${fileName.split(".")[0]}`;
+    fetch(url)
+      .then((response) =>
+        response.blob().then((blob) => {
+          img.src = URL.createObjectURL(blob);
+          img.alt = `image: ${fileName.split(".")[0]}`;
+          img.classList.remove("loader-image");
+          const loaded = img.addEventListener(
+            "load",
+            () => {
+              this.imageLoaded++;
+              if (this.imageLoaded === this.imageCount) {
+                this.app.classList.remove("off");
+                this.loaderScreen.classList.add("off");
+                this.loaderScreen.addEventListener("transitionend", () =>
+                  this.loaderScreen.remove()
+                );
+              }
+            },
+            { once: true }
+          );
+        })
+      )
+      .catch((error) => {
+        console.error(`Failed to load image: ${fileName}`, error);
         img.classList.remove("loader-image");
-        const loaded = img.addEventListener(
-          "load",
-          () => {
-            this.imageLoaded++;
-            if (this.imageLoaded === this.imageCount) {
-              this.app.classList.remove("off");
-              this.loaderScreen.classList.add("off");
-              this.loaderScreen.addEventListener("transitionend", () =>
-                this.loaderScreen.remove()
-              );
-            }
-          },
-          { once: true }
-        );
-      })
-    );
+        this.imageLoaded++;
+        if (this.imageLoaded === this.imageCount) {
+          this.app.classList.remove("off");
+          this.loaderScreen.classList.add("off");
+          this.loaderScreen.addEventListener("transitionend", () =>
+            this.loaderScreen.remove()
+          );
+        }
+      });
   }
 
   initTitleChange() {
@@ -260,6 +273,7 @@ class Game {
   }
 
   nextThrew() {
+    if (this.gameInProgress) return;
     this.userChoiceIndex++;
     if (this.userChoiceIndex > this.choice.length - 1) {
       this.userChoiceIndex = 0;
@@ -269,6 +283,7 @@ class Game {
   }
 
   prevThrew() {
+    if (this.gameInProgress) return;
     this.userChoiceIndex--;
     if (this.userChoiceIndex < 0) {
       this.userChoiceIndex = this.choice.length - 1;
@@ -286,21 +301,28 @@ class Game {
       this.gameInProgress === false
     ) {
       this.gameInProgress = true;
-      for (let i = 0; i < this.computerRollLength; i++) {
-        setTimeout(() => {
-          this.computerChoiceIndex = Math.floor(
-            Math.random() * this.choice.length
-          );
-          this.computerChoice = this.choice[this.computerChoiceIndex];
-          this.setComputerChoiceImage();
-          if (i === 0) {
-            this.gameInProgress = false;
-            this.determineWinner();
-            this.initializeStatistics();
-            this.showResult();
-          }
-        }, 10 * (this.computerRollLength + 1 - i) * (this.computerRollLength + 1 - i));
-      }
+      this.setGameButtonsDisabled(true);
+      const rollDuration = 1500;
+      const interval = 80;
+      const steps = rollDuration / interval;
+      let step = 0;
+
+      const rollInterval = setInterval(() => {
+        this.computerChoiceIndex = Math.floor(
+          Math.random() * this.choice.length
+        );
+        this.computerChoice = this.choice[this.computerChoiceIndex];
+        this.setComputerChoiceImage();
+        step++;
+        if (step >= steps) {
+          clearInterval(rollInterval);
+          this.determineWinner();
+          this.initializeStatistics();
+          this.showResult();
+          this.gameInProgress = false;
+          this.setGameButtonsDisabled(false);
+        }
+      }, interval);
     }
   }
 
@@ -417,6 +439,18 @@ class Game {
     }
   }
 
+  setGameButtonsDisabled(disabled) {
+    if (disabled) {
+      this.startButton.classList.add("disabled");
+      this.prevButton.classList.add("disabled");
+      this.nextButton.classList.add("disabled");
+    } else {
+      this.startButton.classList.remove("disabled");
+      this.prevButton.classList.remove("disabled");
+      this.nextButton.classList.remove("disabled");
+    }
+  }
+
   setUserChoiceImage() {
     this.setHidden(this.playerImages, this.userChoice);
   }
@@ -428,22 +462,10 @@ class Game {
   setHidden(images, choiced) {
     images.forEach((img) => img.classList.add("hidden"));
     images
-      .filter((img) => img.id === choiced.value)[0]
+      .filter((img) => img.dataset.choice === choiced.value)[0]
       .classList.remove("hidden");
   }
 
-  //Get user's choice
-  getUserChoice(userInputStr) {
-    const userChoiceObj = this.getChoice(userInputStr);
-    this.userChoice =
-      this.choice
-        .map((item) => item.name === userChoiceObj.name)
-        .reduce((acc, curr) => (acc += +curr)) > 0
-        ? userChoiceObj
-        : alert(this.dictionary[this.language].error);
-  }
-
-  //Get computer's choice
   getComputerChoice() {
     this.computerChoice =
       this.choice[Math.floor(Math.random() * this.choice.length)];
@@ -527,7 +549,7 @@ class Game {
               }</td>
               <td class="summary-cell" style="text-align:center">${
                 this.statisticMode === "values"
-                  ? +this.statistics["computer"][threw] +
+                  ? +this.statistics["player"][threw] +
                     +this.statistics["computer"][threw]
                   : (
                       ((+this.statistics["player"][threw] +
@@ -562,7 +584,7 @@ class Game {
   }
 
   getTranslation(string) {
-    return this.dictionary[this.language][string];
+    return this.dictionary[this.language][string] || string;
   }
 
   getChoice(userChoice) {
@@ -659,7 +681,7 @@ class Game {
 
   initialize() {
     this.initializeImages();
-    window.onload = () => {
+    window.addEventListener("load", () => {
       this.initilizeDarkmode();
       this.initializeStatistics();
       this.initializeButtons();
@@ -669,7 +691,7 @@ class Game {
       this.updateLang();
       this.initTitleChange();
       this.initStatisticsMode();
-    };
+    });
   }
 }
 

@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rock, paper, scissors, lizard, Spock</title>
-    <link rel="stylesheet" href="style.min.css" />
+    <title>Kő, papír, olló, gyík, Spock</title>
+    <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -23,42 +23,55 @@
       rel="stylesheet"
     />
     <!-- Meta datas -->
-    <meta name="description" content="Rock, paper, scissors, lizard, Spock" />
+    <meta name="description" content="Játssz Kő, papír, olló, gyík, Spockot a számítógéppel! Helyi statisztikákkal, több nyelv és sötét mód támogatással." />
     <meta
       name="image"
-      content="https://bozzayviktor.hu/rpsls/media/scissors.png"
+      content="media/og2.jpg"
     />
-    <meta itemprop="name" content="Rock, paper, scissors, lizard, Spock" />
+    <meta itemprop="name" content="Kő, papír, olló, gyík, Spock" />
     <meta
       itemprop="description"
-      content="Rock, paper, scissors, lizard, Spock"
+      content="Játssz Kő, papír, olló, gyík, Spockot a számítógéppel! Helyi statisztikákkal, több nyelv és sötét mód támogatással."
     />
     <meta
       itemprop="image"
-      content="https://bozzayviktor.hu/rpsls/media/scissors.png"
+      content="media/og2.jpg"
     />
 
     <!-- Twitter-->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Rock, paper, scissors, lizard, Spock" />
+    <meta name="twitter:title" content="Kő, papír, olló, gyík, Spock" />
     <meta
       name="twitter:description"
-      content="Rock, paper, scissors, lizard, Spock"
+      content="Játssz Kő, papír, olló, gyík, Spockot a számítógéppel! Helyi statisztikákkal, több nyelv és sötét mód támogatással."
     />
     <meta
       name="twitter:image"
-      content="https://bozzayviktor.hu/rpsls/media/scissors.png"
+      content="media/og2.jpg"
     />
 
-    <!-- Linked In-->
-    <meta property="og:title" content="Rock, paper, scissors, lizard, Spock" />
+    <!-- Open Graph / Facebook-->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bozzayviktor.hu/rpsls/index.html" />
+    <meta property="og:title" content="Kő, papír, olló, gyík, Spock" />
     <meta
       property="og:image"
-      content="https://bozzayviktor.hu/rpsls/media/scissors.png"
+      content="media/og2.jpg"
     />
     <meta
       property="og:description"
-      content="Description that will show in the preview"
+      content="Játssz Kő, papír, olló, gyík, Spockot a számítógéppel! Helyi statisztikákkal, több nyelv és sötét mód támogatással."
+    />
+
+    <!-- LinkedIn-->
+    <meta property="og:title" content="Kő, papír, olló, gyík, Spock" />
+    <meta
+      property="og:image"
+      content="media/og2.jpg"
+    />
+    <meta
+      property="og:description"
+      content="Játssz Kő, papír, olló, gyík, Spockot a számítógéppel! Helyi statisztikákkal, több nyelv és sötét mód támogatással."
     />
     <meta
       property="og:url"
@@ -71,6 +84,10 @@
     <meta name="robots" content="index,follow" />
     <meta name="googlebot" content="index,follow" />
     <meta name="revisit-after" content="180 days" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="media/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="media/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="media/favicon-16x16.png" />
   </head>
   <body>
     <div id="loader-screen">
@@ -159,37 +176,42 @@
           <div class="image-container player">
             <img
               src="./media/loader.png"
-              id="rock"
+              id="rock-player"
               class="images player loader-image"
               data-filename="media/rock.png"
+              data-choice="rock"
               alt="rock"
             />
             <img
               src="./media/loader.png"
-              id="paper"
+              id="paper-player"
               class="images player hidden loader-image"
               data-filename="media/paper.png"
+              data-choice="paper"
               alt="paper"
             />
             <img
               src="./media/loader.png"
-              id="scissors"
+              id="scissors-player"
               class="images player hidden loader-image"
               data-filename="media/scissors.png"
+              data-choice="scissors"
               alt="scissors"
             />
             <img
               src="./media/loader.png"
-              id="lizard"
+              id="lizard-player"
               class="images player hidden loader-image"
               data-filename="media/lizard.png"
+              data-choice="lizard"
               alt="lizard"
             />
             <img
               src="./media/loader.png"
-              id="spock"
+              id="spock-player"
               class="images player hidden loader-image"
               data-filename="media/spock.png"
+              data-choice="spock"
               alt="spock"
             />
           </div>
@@ -238,37 +260,42 @@
           <div class="image-container computer">
             <img
               src="./media/loader.png"
-              id="rock"
+              id="rock-computer"
               class="images computer loader-image"
               data-filename="media/rock.png"
+              data-choice="rock"
               alt="rock"
             />
             <img
               src="./media/loader.png"
-              id="paper"
+              id="paper-computer"
               class="images computer hidden loader-image"
               data-filename="media/paper.png"
+              data-choice="paper"
               alt="paper"
             />
             <img
               src="./media/loader.png"
-              id="scissors"
+              id="scissors-computer"
               class="images computer hidden loader-image"
               data-filename="media/scissors.png"
+              data-choice="scissors"
               alt="scissors"
             />
             <img
               src="./media/loader.png"
-              id="lizard"
+              id="lizard-computer"
               class="images computer hidden loader-image"
               data-filename="media/lizard.png"
+              data-choice="lizard"
               alt="lizard"
             />
             <img
               src="./media/loader.png"
-              id="spock"
+              id="spock-computer"
               class="images computer hidden loader-image"
               data-filename="media/spock.png"
+              data-choice="spock"
               alt="spock"
             />
           </div>
@@ -434,6 +461,6 @@
       </div>
     </div>
 
-    <script src="app.min.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
