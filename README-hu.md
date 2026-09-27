@@ -25,11 +25,13 @@ RockPaperScissors/
 ├── style.css
 ├── app.js
 ├── media/
-│   ├── og.jpg
+│   ├── og2.jpg
 │   ├── *.png (játék elemek)
 │   └── loader.png
-└── reports/
-    └── code-review.md
+└── test/
+    ├── idx.html
+    ├── loader.css
+    └── test.js
 ```
 
 ## Kezdés
